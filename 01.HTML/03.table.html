@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Table</title>
+    <style>
+        th {padding: 5px;}  /* padding 3px 하면 표 안의  여유 공간이 조금 더 늘어남 */
+        td{text-align: center; padding: 5px;}   /* 가운데 정렬됨 */
+    </style>
+</head>
+<body style="margin-left: 50px;">
+
+    <h1>보여주는 용도로 사용된 테이블</h1>
+    <table border="1">     <!-- border ="1" 입력하면 표로 만들어짐 -->
+        <thead>
+            <tr>         <!-- table row (줄단위) -->
+                <th>순서</th>       <!-- th*3 치고 tab 하면 한번에 3개 나옴 -->
+                <th>제목</th>       <!-- 제목은 th로 내용은 td로 표기 -->
+                <th>내용</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td>자바</td>
+                <td>객체지향 프로그래밍 언어</td>
+            </tr>
+        <tr>
+            <td>2</td>
+            <td>HTML</td>
+            <td>Hyper Text Markup Language</td>
+        </tr>
+        <tr>
+            <td rowspan="2">3</td>                  <!-- rowspan 아래의 내용 행까지 같은열로 합쳐줄수 있음 -->
+            <td rowspan="2">동적 웹</td>
+            <td>Java Script</td>
+        </tr>
+        <tr>
+            <!-- <td>3</td> -->
+            <!-- <td>동적 웹</td> -->           
+            <td>jQuery</td>
+        </tr>
+        <tr>
+        <td colspan="3"> 여러(3) 컴럼을 하나로</td>         <!-- 한행으로 표 합치기가 필요할땐 colspan -->
+        </tr>
+        </tbody>
+    </table>
+    <br>
+    <h1>입력 폼의 모양 정리</h1>
+    <h3>로그인</h3>
+    <form action="/user/login" method="post">
+      아이디 : <input type="text" name="uid"><br>
+      패스워드 : <input type="password" name="pwd"><br>
+      <input type="submit" value="확인">
+      <input type="reset" value="취소">
+    </form>
+    <br>
+    <h3>로그인 with Table</h3>
+    <form action="/user/login" method="post"></form>
+    <table>
+        <tr>
+            <td style="text-align: left;">아이디 : </td>
+            <td> <input type="text" name="uid"></td>
+        </tr>
+        <tr>
+            <td style="text-align: left;">패스워드 : </td>
+            <td> <input type="password" name="pwd"></td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <input type="submit" value="확인">
+                <input type="reset" value="취소">
+            </td>
+        </tr>
+    </table>
+</body>
+</html>
