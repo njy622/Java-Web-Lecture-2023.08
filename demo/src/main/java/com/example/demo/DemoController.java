@@ -1,14 +1,19 @@
 package com.example.demo;
 
+import java.util.Stack;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class DemoController {
+	String a_=null, b_ =null, op=null;
+	int a= 0, b= 0, result=0;
 	
 	// localhost:8080/demo/index	
 	@GetMapping("/index")
@@ -104,6 +109,60 @@ public class DemoController {
 //		return "06.writeForm";
 		model.addAttribute("board", board);   //파라미터 자리에 Model model 추가
 		return "07.writeResult";
+		
+	}
+	
+	@GetMapping("/calculator")
+	public String calculator() {
+		return "08.calculator";
+	}
+//	Object obj = session.getAttribute("stack");
+//	Stack<Object> stack = (obj == null) ? new Stack<>() : (Stack) obj;
+
+// 두자리수는 아직 안됨 찾아보자	
+	
+	@PostMapping("/calculator")
+	public String calculatorProc(HttpServletRequest req, HttpSession session, Model model) {
+		String num_ = req.getParameter("num");
+		String op_ = req.getParameter("op");
+		String eval = req.getParameter("eval");
+		if (eval == null)
+			eval = "";
+		
+		if (num_ != null) {
+				eval += num_;
+				if (a_ == null) {
+					a_ = num_;
+					a = Integer.parseInt(a_);
+				} else if (b_ == null) {
+					b_ = num_;
+					b = Integer.parseInt(b_);
+				}
+				model.addAttribute("eval", eval);
+			} else if (op_ != null) {
+				if (op_.equals("C")) {
+					eval = "";
+					a_ = null; b_ = null; op = null;
+					a = 0; b = 0;
+					model.addAttribute("eval", eval);
+				} else if (op_.equals("=")) {
+					switch(op) {
+					case "+": result = a + b; break;
+					case "-": result = a - b; break;
+					case "*": result = a * b; break;
+					case "/": result = (int) (a / b); break;
+					default: result = 0;
+					}
+					a_ = null; b_ = null; op = null;
+					a = 0; b = 0;
+					model.addAttribute("eval", result);
+				} else {
+					eval += " " + op_ + " ";
+					op = op_;
+					model.addAttribute("eval", eval);
+				}
+			}
+			return "08.calculator";
 		
 	}
 	
