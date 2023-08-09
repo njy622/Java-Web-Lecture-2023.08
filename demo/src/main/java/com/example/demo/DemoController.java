@@ -107,6 +107,5 @@ public class DemoController {
 		
 	}
 	
-	//writeResult 만들어보자!
 	
 }
