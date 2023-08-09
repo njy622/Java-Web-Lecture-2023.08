@@ -64,7 +64,7 @@ public class DemoController {
 	}
 	//calc 폼이 화면에 보이도록함
 	@GetMapping("/calc")
-	public String calcForm(int a, int b, String op) {  //파라미터 자리에 이렇게 입력해주면 String값을 int로 바꿔줌(스프링에서만 가능한 기능)
+	public String calcForm() {  //파라미터 자리에 이렇게 입력해주면 String값을 int로 바꿔줌(스프링에서만 가능한 기능)
 		return "04.calcForm";
 	}
 	
@@ -85,4 +85,28 @@ public class DemoController {
 		model.addAttribute("result", result);
 		return "05.calcResult";
 	}
+	
+	@GetMapping("/write")
+	public String writeForm() {
+		return "06.writeForm";
+	}
+	// write 받는 메소드 작성!
+	@PostMapping("/write")
+	public String writeProc(HttpServletRequest req, Model model) {
+		String title = req.getParameter("title");
+		String[] languages = req.getParameterValues("language");    //체크박스는 멀티로 선택가능함, 그래서 배열로표기
+		String content = req.getParameter("content");		
+		// 읽은 데이터를 가지고 DB에다가 저장하기 위해 코드를 만들자
+		
+		String joinLanguages = (languages ==null) ? "" :String.join(", ", languages);
+		Board board = new Board(title, joinLanguages, content.replace("\n", "<br>"));
+//		System.out.println(board);
+//		return "06.writeForm";
+		model.addAttribute("board", board);   //파라미터 자리에 Model model 추가
+		return "07.writeResult";
+		
+	}
+	
+	//writeResult 만들어보자!
+	
 }
