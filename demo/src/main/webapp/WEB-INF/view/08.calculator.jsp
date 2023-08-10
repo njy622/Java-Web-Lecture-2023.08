@@ -18,7 +18,7 @@
         <table>
             <tr>
                 <td class="result" colspan="4">${eval}</td>
-                <input type="hidden" name="eval" value="${eval}">
+              <!--  <input type="hidden" name="eval" value="${eval}"> 받을 필요없음--> 
             </tr>
             <tr>
                 <td><button type="submit" name="op" value="C">C</button></td>
