@@ -116,12 +116,78 @@ public class DemoController {
 	public String calculator() {
 		return "08.calculator";
 	}
+	// localhost:8080/demo/calculator
+	@PostMapping("/calculator")
+	public String calculatorProc(HttpServletRequest req, HttpSession session, Model model) {
+		String num_ = req.getParameter("num");
+		String op_ = req.getParameter("op");
+		Object obj = session.getAttribute("stack");
+		Stack<String> stack = (obj == null) ? new Stack<>() : (Stack) obj;
+		
+		if (num_ != null) {                  //num 숫자를 눌렀을때
+			if (stack.isEmpty()) {			//스텍영역이 비었으면
+				stack.push(num_);			//숫자를 넣어주고
+			} else {
+				String element = stack.pop();		//스텍영역에 데이터가 있으면 스텍에서 element로 빼줌
+				
+				if (element.equals("/") || element.equals("*")		//element가 연산자이면
+					|| element.equals("-") || element.equals("+")) {
+					stack.push(element);							// 스텍에 연산자를 넣고
+					stack.push(num_);								// 숫자를 넣어줌
+				} else {
+					num_ = element + num_;				//연산자가 아니면 숫자를 계속 입력하여
+					stack.push(num_);					//스텍에 넣어줌
+				}
+			}
+			session.setAttribute("stack", stack);		// 스텍에 저장된 값을 "stack"에 저장
+			model.addAttribute("eval", getEval(stack));		//스텍에 저장된 값을 "eval"에 표시
+		} else if (op_ != null && !op_.equals("=")) {   //숫자가 아닌 연산자가 null이 아니거나 =이 아닐때,
+			if (op_.equals("C")) {			// 연산자가 C일때
+				if (stack.isEmpty())		// 스텍이 비어있으면
+					;						// 아무것도 표시 안함
+				else {							// 연산자가 비어있지 않다면
+					String s = stack.pop();		// 스텍에 있는 값을 변수 s에 빼놓고
+					if (s.length() > 1) {		// s의 길이가 1보다크면
+						s = s.substring(0, s.length()-1);	// s는 첫글자부터 s의 끝자리까지 s에 담는다
+						stack.push(s);		// s의 값을 스텍에 넣어둠
+					}
+				}
+			} else 								// 연산자가 C가 아닐때
+				stack.push(op_);				// 스텍에 연산자를 넣어둠
+			session.setAttribute("stack", stack);		// 스텍에 저장된 값을 "stack"에 저장
+			model.addAttribute("eval", getEval(stack)); //스텍에 저장된 값을 "eval"에 표시
+		} else {										//숫자가 아닌 연산자가 null이고 =이면,
+			int result = 0;
+			int num2 = Integer.parseInt(stack.pop());	//스텍에 저장한 값을 꺼내서, 숫자로 변환하여 num2에 넣어둠
+			String op = stack.pop();					//스텍에서 꺼낸 값을 op에 넣어둠
+			int num1 = Integer.parseInt(stack.pop());	// 스텍에 저장한 값을 꺼내서, 숫자로 변환하여 num1에 넣어둠
+			switch(op) {								// op 연산자의 경우에 따라 연산
+			case "+": result = num1 + num2; break;
+			case "-": result = num1 - num2; break;
+			case "*": result = num1 * num2; break;
+			case "/": result = (int) (num1 / num2); break;
+			default: result = 0;
+			}
+			session.removeAttribute("stack");
+			model.addAttribute("eval", result);
+		}
+		return "08.calculator";
+	}
+	
+	String getEval(Stack<String> stack) {
+		String eval = "";
+		for (String s: stack)
+			eval += s + " ";
+		return eval;
+	}
+}
+
 //	Object obj = session.getAttribute("stack");
 //	Stack<Object> stack = (obj == null) ? new Stack<>() : (Stack) obj;
 
 // 두자리수는 아직 안됨 찾아보자	
-	
-	/*@PostMapping("/calculator")
+
+/*@PostMapping("/calculator")
 	public String calculatorProc(HttpServletRequest req, HttpSession session, Model model) {
 		String num_ = req.getParameter("num");
 		String op_ = req.getParameter("op");
@@ -170,68 +236,3 @@ public class DemoController {
 			return "08.calculator";
 		
 	}*/
-	
-	@PostMapping("/calculator")
-	public String calculatorProc(HttpServletRequest req, HttpSession session, Model model) {
-		String num_ = req.getParameter("num");
-		String op_ = req.getParameter("op");
-		Object obj = session.getAttribute("stack");
-		Stack<String> stack = (obj == null) ? new Stack<>() : (Stack) obj;
-		
-		if (num_ != null) {
-			if (stack.isEmpty()) {
-				stack.push(num_);
-			} else {
-				String element = stack.pop();
-				
-				if (element.equals("/") || element.equals("*")
-					|| element.equals("-") || element.equals("+")) {
-					stack.push(element);
-					stack.push(num_);
-				} else {
-					num_ = element + num_;
-					stack.push(num_);
-				}
-			}
-			session.setAttribute("stack", stack);
-			model.addAttribute("eval", getEval(stack));
-		} else if (op_ != null && !op_.equals("=")) {
-			if (op_.equals("C")) {
-				if (stack.isEmpty())
-					;
-				else {
-					String s = stack.pop();
-					if (s.length() > 1) {
-						s = s.substring(0, s.length()-1);
-						stack.push(s);
-					}
-				}
-			} else 
-				stack.push(op_);
-			session.setAttribute("stack", stack);
-			model.addAttribute("eval", getEval(stack));
-		} else {
-			int result = 0;
-			int num2 = Integer.parseInt(stack.pop());
-			String op = stack.pop();
-			int num1 = Integer.parseInt(stack.pop());
-			switch(op) {
-			case "+": result = num1 + num2; break;
-			case "-": result = num1 - num2; break;
-			case "*": result = num1 * num2; break;
-			case "/": result = (int) (num1 / num2); break;
-			default: result = 0;
-			}
-			session.removeAttribute("stack");
-			model.addAttribute("eval", result);
-		}
-		return "08.calculator";
-	}
-	
-	String getEval(Stack<String> stack) {
-		String eval = "";
-		for (String s: stack)
-			eval += s + " ";
-		return eval;
-	}
-}

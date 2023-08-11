@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bootstrap</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.querySelector('img')..center-block;    
+    </script>
+</head>
+<body>
+    <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#"><img src="https://blog.kakaocdn.net/dn/dUASe6/btrzBI6fiw6/zsUWHDM0TLxbazX3wpReUK/img.png" alt="" height="36"></a>
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item">
+                     <a class="nav-link active" href="#">Home</a>
+                </li>
+               <li class="nav-item">
+                     <a class="nav-link" href="#">Link</a>
+                </li>
+                <li class="nav-item">
+                     <a class="nav-link" href="#">Link</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#">Dropdown</a>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="#">Link 1</a></li>
+                    <li><a class="dropdown-item" href="#">Link 2</a></li>
+                    <li><a class="dropdown-item" href="#">Link 3</a></li>
+                </ul>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link disabled" href="#">Disabled</a>
+            </li>
+        </ul>
+        <span class="navbar-text me-5">Navbar text</span>
+        <form class="d-flex me-3">
+            <input class="form-control me-2" type="text" placeholder="Search">
+            <button class="btn btn-primary" type="button">Search</button>
+        </form>
+    </div>
+    </nav>
+    <div class="container-fluid p-3 bg-primary text-white text-center">
+        <h1> <img class="me-5" src="https://blog.kakaocdn.net/dn/dUASe6/btrzBI6fiw6/zsUWHDM0TLxbazX3wpReUK/img.png" height="50">My First Webpage</h1>
+    </div>
+    
+
+  <div class="container-fluid mt-3">
+  </div>
+    <div class="container mt-4">
+        <div class="row">
+                <div class="col">
+                    <h2>Card Header and Footer</h2>
+                    <div class="card">
+                    <div class="card-header text-center">저에 대해 알아가볼까요?</div>
+                    <div class="card-body">
+                    <a href="https://www.hanbit.co.kr/academy/"><span class="badge bg-primary">나의 작업물</span></a>
+                    <!-- Carousel -->
+                    <div id="demo" class="carousel slide" data-bs-ride="carousel">
+
+                    <!-- Indicators/dots -->
+                    <div class="carousel-indicators">
+                        <button type="button" data-bs-target="#demo" data-bs-slide-to="0" class="active"></button>
+                        <button type="button" data-bs-target="#demo" data-bs-slide-to="1"></button>
+                        <button type="button" data-bs-target="#demo" data-bs-slide-to="2"></button>
+                        <button type="button" data-bs-target="#demo" data-bs-slide-to="3"></button>
+                        <button type="button" data-bs-target="#demo" data-bs-slide-to="4"></button>
+                    </div>
+                        
+                    <!-- The slideshow/carousel -->
+                    <div class="carousel-inner ">
+                        <div class="carousel-item active">
+                            <img src="img/빡공짱구.jpg " alt="Los Angeles" class="d-block mx-auto d-block" style="width:100%">
+                        </div>
+                        <div class="carousel-item">
+                            <img src="img/환호변경.JPG" alt="Chicago" class="d-block mx-auto d-block" style="width:100%">
+                        </div>
+                        <div class="carousel-item">
+                                <img src="img/시골할머니.jpg" alt="New York" class="d-block mx-auto d-block" style="width:100%">
+                        </div>
+                        <div class="carousel-item">
+                            <img src="img/줌바.jpg" alt="New York" class="d-block mx-auto d-block" style="width:100%">
+                        </div>
+                        <div class="carousel-item">
+                            <img src="img/밍키룡.jpg" alt="New York" class="d-block mx-auto d-block" style="width:100%">
+                        </div>
+                    </div>
+                        
+                    <!-- Left and right controls/icons -->
+                        <button class="carousel-control-prev" type="button" data-bs-target="#demo" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon"></span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#demo" data-bs-slide="next">
+                        <span class="carousel-control-next-icon"></span>
+                        </button>
+                    </div>
+                    </div> 
+                    <div class="card-body">Favorite</div> 
+                    <div class="card-body">Food</div> 
+                    <div class="card-body">travel</div> 
+                    <div class="card-footer">Thank you</div>
+                </div>
+            </div>
+            <div class="col">
+                <h3 class="text-center">My Profile</h3>
+                <div class="card" style="width:100%">
+                    <img class="card-img-top" src="img/정면수정.JPG" alt="Card image" style="width:100%">
+                    <div class="card-body text-center">
+                        <h4 class="card-title">Ji Yeong, Nam</h4>
+                        <p class="card-text">안녕하세요</p>
+                        <p class="card-text">저는 남지영입니다.</p>
+                        <a href="#" class="btn btn-primary" onclick="alert('까꿍 ~ !')">Click!</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <h3 class="text-center">Thank you!</h3>
+                <div class="card" style="width: 100%">
+                        <div class="card-body text-center">
+                            <h4 class="card-title">Funny Time</h4>
+                            <p class="card-text">즐거운 시간을 보냈으면 좋겠어요</p>
+                            <a href="#" class="btn btn-primary" onclick="alert('★ 방문해주셔서 감사합니다 ★')">Click!</a>
+                        </div>
+                        <img class="card-img-top " src="img/대화.jpg" alt="Card image" style="width:100%"  >
+                    </div class="mb-5">
+                </div>
+        </div>
+    </div>
+</body>
+</html>
