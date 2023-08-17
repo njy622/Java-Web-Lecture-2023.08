@@ -16,7 +16,7 @@ public class Address {
 
 	@Override //오버라이딩한 멤버
 	public String toString() {
-		return "Address [zipCode=" + zipCode + ", city=" + city + ", country=" + country + "]";
+		return "( " + zipCode + " )   " + city + "   " + country;
 	}
 
 	//getter, setter

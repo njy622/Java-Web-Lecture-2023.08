@@ -11,7 +11,6 @@
 	<%@ include file="./common/head.jspf" %>
 	 <style>
         th { text-align: center; width: 14.28%; }
-        td { height: 100px; }
     </style>
 </head>
 <body>
@@ -24,9 +23,8 @@
        		<div class="col-9">
        				<h3><strong>샘플</strong></h3>
        				<hr>
-       			<%@ include file="./jstl_core_sample.jsp" %>
-       		
-       		</div>
+	       		<%@ include file="./jstl_core_homework.jsp" %>
+	       	</div>
    			<!-- ================= Main ==================== -->
        </div>
    </div>

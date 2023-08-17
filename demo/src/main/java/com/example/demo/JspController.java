@@ -21,12 +21,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/jsp")  //주소로 불러오고 싶을때 => /demo/jsp
 public class JspController {
 	
+	
 	@GetMapping("/sample") //demo/jsp/sample
 	public String sample(Model model) {
-		//session.addAttribute("menu", "ai"); /모든 페이지에서 menu를 쓸수 있음
 		model.addAttribute("menu", "ai");
 		return "jsp/sample";
 	}
+	
 	
 	@GetMapping("/schedule") //demo/jsp/schedule
 	public String schedule(Model model) {
@@ -128,4 +129,40 @@ public class JspController {
 		return "jsp/jstl2_fmt";
 	}
 	
+	
+	@GetMapping("/jstlFn")
+	public String jstlFn(Model model) {
+		model.addAttribute("str1", "Hello world");
+		model.addAttribute("str2", "쇼핑몰의 중심 JSP Mall");
+		model.addAttribute("str3", "중심");
+		return "jsp/jstl3_fn";
+	}
+	
+	@GetMapping("/homeWork") //demo/jsp/homeWork
+	public String homeWork(Model model) {
+		model.addAttribute("menu", "user");
+		Address addr1 = new Address(12345, "LA", "미국");
+		Address addr2 = new Address(67890, "뉴욕", "미국");
+		Member m1 = new Member(104, "신영화", new Address(45678, "서울", "한국"));
+		Member m2 = new Member(103, "주세희", new Address(12345, "인천", "한국"));
+		Member m3 = new Member(104, "남지영", new Address(23456, "고양", "한국"));
+		Member m4 = new Member(103, "조세훈", new Address(34567, "서울", "한국"));
+		Member m5 = new Member(101, "제임스", addr1);
+		Member m6 = new Member(102, "마리아", addr2);
+		Member m7 = new Member(103, "홍길동", new Address(23456, "서울", "한국"));
+		Member m8 = new Member(104, "김자바", new Address(23456, "고양", "한국"));
+		Member m9 = new Member(103, "정종문", new Address(56789, "파주", "한국"));
+		Member m10 = new Member(104, "박하민", new Address(67890, "경기", "한국"));
+		//jsp를 보내려면.. model.
+		model.addAttribute("m1", m1);
+		model.addAttribute("m2", m2);
+		
+		Member[] member = {m1, m2};
+		model.addAttribute("memberArray",member);
+		
+		List<Member> list = new ArrayList<>();
+		list.add(m1); list.add(m2); list.add(m3); list.add(m4);list.add(m5);list.add(m6);list.add(m7);list.add(m8);list.add(m9);list.add(m10);
+		model.addAttribute("memberList", list);
+		return "jsp/homework";
+	}
 }
