@@ -135,7 +135,7 @@
 			</connections>
 			<display>false</display>
 			<creation_date>2023-08-18 10:10:36</creation_date>
-			<updated_date>2023-08-18 13:54:55</updated_date>
+			<updated_date>2023-08-18 17:19:00</updated_date>
 			<model_property>
 				<name>프로젝트명</name>
 				<value></value>
@@ -260,8 +260,8 @@
 			<args></args>
 			<char_semantics>false</char_semantics>
 			<description></description>
-			<logical_name>oderdate</logical_name>
-			<physical_name>oderdate</physical_name>
+			<logical_name>orderdate</logical_name>
+			<physical_name>orderdate</physical_name>
 			<type>date</type>
 		</word>
 		<word>
