@@ -38,7 +38,32 @@ select name, address from customer where name like '김%아';
 Q1. 마당서점에서 다음의 심화된 질문에 대해 SQL문을 작성하시오
 */
 --(1) 박지성이 구매한 도서의 출판사와 같은 출판사에서 도서를 구매한 고객의 이름
+-- 박지성이 구매한 도서의 출판사이름
+select b.publisher from orders o
+    join customer c on c.custid = o.custid
+    join book b on b.bookid = o.bookid
+    group by b.publisher, c.name, b.bookid
+    having (c.name = '박지성');   
 
+-- 박지성이 구매한 도서의 출판사의 bookid
+select b.bookid from orders o
+    join customer c on c.custid = o.custid
+    join book b on b.bookid = o.bookid
+    group by b.publisher, c.name, b.bookid
+    having (c.name = '박지성'); 
+    
+--  박지성이 구매한 bookid와 동일한  출력
+select c.name from orders o
+    join customer c on c.custid = o.custid
+    join book b on b.bookid = o.bookid
+    where bookid like (
+    select b1.bookid from orders o1 
+    join customer c1 on c1.custid = o1.custid
+    join book b1 on b1.bookid = o1.bookid
+    group by b1.publisher, c1.name, b1.bookid
+    having c1.name like '박지성');
+    
+    
 
 
 --(2) 두 개 이상의 서로 다른 출판사에서 도서를 구매한 고객의 이름
