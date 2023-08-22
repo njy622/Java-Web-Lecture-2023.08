@@ -22,7 +22,7 @@ public class Ex01_Select {
 			stmt = conn.createStatement();  
 			String sql = "select * from customer";
 			
-			// sql 실행(select)  => 결과는 ResultSet으로 받음(rs에 들어옴)
+			// sql 실행(select)  => 결과는 ResultSet으로 받음(rs에 그 값이 들어옴)
 			ResultSet rs = stmt.executeQuery(sql);
 			while (rs.next()) {		// 리턴값이 남아있는 동안에  while문 안의 내용을 실행해라(한줄단위로 들어옴)
 				int custId = rs.getInt(1);   // 1자리에 컬럼명을 써줘도됨(custid)

@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 
 public class CustomerDao {
@@ -14,7 +16,7 @@ public class CustomerDao {
 	private int port;
 	
 	public CustomerDao() {
-		// 아래의 코드는 임시용 (Spring 에서는 이런식으로..) 
+		// 아래의 코드는 임시용 (Spring 에서는 앞으로는 안쓸거임) 
 		this.host = "localhost";
 		this.user = "hmuser";
 		this.password = "hmpass";
@@ -58,7 +60,25 @@ public class CustomerDao {
 	}
 	
 	public List<Customer> getCustomerList(){
-		
-		return null;
+		Connection conn = myConnection();  
+		String sql = "select * from customer";
+		List<Customer> list = new ArrayList<>();  
+		try {
+			Statement stmt = conn.createStatement();  
+			ResultSet rs = stmt.executeQuery(sql);
+			while (rs.next()) {
+				int custId = rs.getInt(1);  
+				String name = rs.getString(2);
+				String addr = rs.getString(3);
+				String phone = rs.getString(4);
+				//객체선언
+				Customer c = new Customer(custId, name, addr, phone);
+				list.add(c);
+			}
+			rs.close(); stmt.close(); conn.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
 	}
 }
