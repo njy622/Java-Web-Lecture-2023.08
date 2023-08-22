@@ -67,7 +67,9 @@ select c.name from orders o
 
 
 --(2) 두 개 이상의 서로 다른 출판사에서 도서를 구매한 고객의 이름
-
+-- 출판사가 다른 bookid 추출
+select publisher from book group by publisher;
+-- 
 
     
 
