@@ -1,4 +1,4 @@
-package com.example.demo.oracle;
+package com.example.demo.oracle.Customer;
 //테이블 하나를 테이블하나에 매핑하는 과정
 public class Customer { 
 	private int custId;

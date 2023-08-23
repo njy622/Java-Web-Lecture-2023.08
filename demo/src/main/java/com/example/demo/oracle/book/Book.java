@@ -6,10 +6,8 @@ public class Book {			//객체를 만들때 기본적으로 쓰는게 private / 
 	private String publisher;
 	private int price;
 	
-	public Book() {	}
-
+	public Book() {	} // 프로그램을 어떻게 사용할지 모르기때문에 기본생성자 생성
 	public Book(int bookId, String bookname, String publisher, int price) {
-		super();
 		this.bookId = bookId;
 		this.bookname = bookname;
 		this.publisher = publisher;
