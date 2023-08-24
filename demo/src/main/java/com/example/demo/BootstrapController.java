@@ -15,8 +15,8 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 
-@Controller
-@RequestMapping("/bs")  // 주소 설정
+//@Controller
+//@RequestMapping("/bs")  // 주소 설정
 public class BootstrapController {
 	
 	@Value("${spring.servlet.multipart.location}") private String uploadDir;

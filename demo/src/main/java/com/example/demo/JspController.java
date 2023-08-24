@@ -17,8 +17,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 
-@Controller  // 콘트롤러 사용하려면 가장 먼저 추가해야함 
-@RequestMapping("/jsp")  //주소로 불러오고 싶을때 => /demo/jsp
+//@Controller  // 콘트롤러 사용하려면 가장 먼저 추가해야함 
+//@RequestMapping("/jsp")  //주소로 불러오고 싶을때 => /demo/jsp
 public class JspController {
 	
 	
