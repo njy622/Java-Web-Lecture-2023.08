@@ -15,7 +15,7 @@ CREATE TABLE Book
 	bookid number(2) NOT NULL,
 	bookname varchar2(40) NOT NULL,
 	publisher varchar2(40),
-	price number(8) NOT NULL,
+	price number(8) NOT NULL
 	PRIMARY KEY (bookid)
 );
 
