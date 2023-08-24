@@ -39,8 +39,9 @@ public class BlogController {
    }
    
    @GetMapping("/detail/{bid}")
-   public String detail(@PathVariable int bid, Model model) {  
-	   bDao.increaseViewCount(bid);				// 조회수 증감
+   public String detail(@PathVariable int bid, String option, Model model) {  
+	   if (option == null || option.equals(""))
+		   bDao.increaseViewCount(bid);	 //DNI option이 설정되어 있으면 조회수를 증가시키지 않음
 	   Blog blog = bDao.getBlog(bid);
 	   model.addAttribute("blog", blog);
 	   model.addAttribute("menu", "blog");
@@ -61,7 +62,20 @@ public class BlogController {
 // public String updateProc	(int bid, String penName, String title, content) {
 //	   Blog blog = new Blog(bid, penName, title, content);  //이렇게 쓸수도 있음
 	   bDao.updateBlog(blog);
-	   return "redirect:/blog/detail/" + blog.getBid();
+	   return "redirect:/blog/detail/" + blog.getBid() + "?option=DNI";  //?option=DNI있으면 조회수 XX, 없으면 조회수 올림
    }
+   
+   @GetMapping("/delete/{bid}")
+	public String delete(@PathVariable int bid, Model model) {
+		model.addAttribute("bid", bid);
+		model.addAttribute("menu", "blog");
+		return "blog/delete";
+	}
+	
+	@GetMapping("/deleteConfirm/{bid}")
+	public String deleteConfirm(@PathVariable int bid) {
+		bDao.deleteBlog(bid);
+		return "redirect:/blog/list";
+	}
    
 }
