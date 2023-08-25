@@ -15,7 +15,7 @@
    			let field = document.getElementById('field').value;
    			let query = document.getElementById('query').value;
    			//console.log("search()", field, query);
-   			location.href = '/demo/blog/list?f=' + field + '&q=' + query;
+   			location.href = '/demo/food/list?f=' + field + '&q=' + query;
    		}
    </script>
 </head>
@@ -31,19 +31,20 @@
            		<tr>
            			<td style="width: 52%; text-align: left;">
 			              <h3>
-			              	<strong>블로그 목록</strong>
+			              	<strong>Food 게시판</strong>
 				      	    <span style="font-size:0.6em;">
-				      	    	<a href="/demo/blog/write">
-				      	    		<i class="ms-5 fa-regular fa-file-lines"></i> 글쓰기
+				      	    	<a href="/demo/food/write">
+				      	    		<i class="ms-5 fa-regular fa-file-lines"></i> 메뉴 등록
 				      	    	</a>
 				      	    </span>
 			              </h3>
            			</td>
            			<td stlye="width: 15%;">
 			      		<select class="form-select" id="field" >  <!-- ↓필드가 타이틀이면  셀렉티드 아니면 '' -->
-			                     <option value="title" ${field eq 'title' ? 'selected' : '' }>제목</option>
-			                     <option value="content"  ${field eq 'content' ? 'selected' : '' }>본문</option>
-			                     <option value="penName"  ${field eq 'penName' ? 'selected' : '' }>필명</option>
+			                     <option value="foodType" ${field eq 'foodType' ? 'selected' : '' }>종류</option>
+			                     <option value="content"  ${field eq 'content' ? 'selected' : '' }>내용</option>
+			                     <option value="taste"  ${field eq 'taste' ? 'selected' : '' }>맛평가</option>
+			                     <option value="nickName"  ${field eq 'nickName' ? 'selected' : '' }>닉네임</option>
 		                 </select>
            			</td>
            			<td stlye="width: 25%;">
@@ -59,19 +60,21 @@
               <hr>
               <table class="table">
                  <tr class= "table-secondary">
-                    <th style="width: 8%;">ID</th>
-                    <th style="width: 14%;">필명</th>
-                    <th style="width: 48%;">제목</th>
+                    <th style="width: 8%;">No</th>
+                    <th style="width: 14%;">닉네임</th>
+                    <th style="width: 14%;">종류</th>
+                    <th style="width: 34%;">내용</th>
                     <th style="width: 20%;">작성시간</th>
                     <th style="width: 10%;">조회수</th>
                  </tr>
-              <c:forEach var="blog" items="${blogList}">
+              <c:forEach var="food" items="${foodList}">
                  <tr>
-                    <td>${blog.bid}</td>
-                    <td>${blog.penName}</td>
-                    <td><a href="/demo/blog/detail/${blog.bid}">${blog.title}</a></td>
-                    <td>${fn:replace(fn:substring(blog.modTime, 2, 16), 'T', ' ')}</td>
-                    <td>${blog.viewCount}</td>
+                    <td>${food.id}</td>
+                    <td>${food.nickName}</td>
+                    <td><a href="/demo/food/detail/${food.id}">${food.foodType}</a></td>
+                    <td>${food.content}</td>
+                    <td>${fn:replace(fn:substring(food.modTime, 2, 16), 'T', ' ')}</td>
+                    <td>${food.viewCount}</td>
                  </tr>
               </c:forEach>
               </table>

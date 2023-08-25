@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-@Service
+@Service		//오라클에 할땐 살리고, 다른DB로 할땐 주석으로해서 죽이고
 public class BlogServiceOracleImpl implements BlogService {
 
 	@Autowired private BlogDaoOracle blogDao;
