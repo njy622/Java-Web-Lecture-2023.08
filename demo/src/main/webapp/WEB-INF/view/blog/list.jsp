@@ -8,7 +8,16 @@
 <html>
 <head>
    <%@ include file="./common/head.jspf" %>
-   <style>td, th { text-align : center; }</style>
+   <style>td, th { text-align : center; }
+   </style>
+   <script>
+   		function search() {
+   			let field = document.getElementById('field').value;
+   			let query = document.getElementById('query').value;
+   			//console.log("search()", field, query);
+   			location.href = '/demo/blog/list?f=' + field + '&q=' + query;
+   		}
+   </script>
 </head>
 <body>
    <%@ include file="./common/top.jspf" %>
@@ -18,14 +27,35 @@
            <%@ include file="./common/aside.jspf" %>
            <!-- ================== Main =============== -->
            <div class="col-9">
-              <h3>
-              	<strong>블로그 목록</strong>
-	      	    <span style="font-size:0.6em;">
-	      	    	<a href="/demo/blog/write">
-	      	    		<i class="ms-5 fa-regular fa-file-lines"></i> 글쓰기
-	      	    	</a>
-	      	    </span>
-              </h3>
+           	<table class="table table-sm table-borderless">
+           		<tr>
+           			<td style="width: 52%; text-align: left;">
+			              <h3>
+			              	<strong>블로그 목록</strong>
+				      	    <span style="font-size:0.6em;">
+				      	    	<a href="/demo/blog/write">
+				      	    		<i class="ms-5 fa-regular fa-file-lines"></i> 글쓰기
+				      	    	</a>
+				      	    </span>
+			              </h3>
+           			</td>
+           			<td stlye="width: 15%;">
+			      		<select class="form-select" id="field" >  <!-- ↓필드가 타이틀이면  셀렉티드 아니면 '' -->
+			                     <option value="title" ${field eq 'title' ? 'selected' : '' }>제목</option>
+			                     <option value="content"  ${field eq 'content' ? 'selected' : '' }>본문</option>
+			                     <option value="penName"  ${field eq 'penName' ? 'selected' : '' }>필명</option>
+		                 </select>
+           			</td>
+           			<td stlye="width: 25%;">
+           				<input class="form-control" placeholder="검색할 내용" id="query" value="${query}"
+           						onkeyup="if(window.event.keyCode == 13) search()">
+           						<!-- keyup(keyup일때 데이터를 받음)일때 keyCode== 13(엔터키)이면 search()를 호출함 -->
+           			</td>
+           			<td stlye="width: 8%;">
+           				<button class="btn btn-outline-primary" onclick="search()">검색</button>
+           			</td>
+           		</tr>           	
+           	</table>
               <hr>
               <table class="table">
                  <tr class= "table-secondary">
