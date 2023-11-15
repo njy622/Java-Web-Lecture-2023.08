@@ -14,7 +14,7 @@ public interface FoodDaoOracle {
 	Food getFood(int id);
 	
 	
-	@Select("select * from blog where ${field} like #{query} and isDeleted=0"
+	@Select("select * from food where ${field} like #{query} and isDeleted=0"
 			+ " order by modTime desc")
 	List<Food> getFoodList(String field, String query);
 	

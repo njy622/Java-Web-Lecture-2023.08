@@ -47,11 +47,11 @@
 			                     <option value="nickName"  ${field eq 'nickName' ? 'selected' : '' }>닉네임</option>
 		                 </select>
            			</td>
-           			<td stlye="width: 25%;">
+           		 	<td stlye="width: 25%;">
            				<input class="form-control" placeholder="검색할 내용" id="query" value="${query}"
            						onkeyup="if(window.event.keyCode == 13) search()">
            						<!-- keyup(keyup일때 데이터를 받음)일때 keyCode== 13(엔터키)이면 search()를 호출함 -->
-           			</td>
+           			</td> 
            			<td stlye="width: 8%;">
            				<button class="btn btn-outline-primary" onclick="search()">검색</button>
            			</td>
