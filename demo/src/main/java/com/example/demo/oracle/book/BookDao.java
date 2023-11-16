@@ -54,7 +54,7 @@ public class BookDao {
 		return conn;
 	}
 	
-	public Book getBook(int bookId) {  //Book 테이블의 타입응ㄹ 쓸것!
+	public Book getBook(int bookId) {  //Book 테이블의 타입을 쓸것!
 		Connection conn = myConnection();  // 접속정보를 하나 가지고옴
 		String sql = "select * from book where bookid=?";
 		Book book = null;
