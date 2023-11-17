@@ -18,8 +18,8 @@ public class UserServiceOracleImpl implements UserService{
 	
 	@Override
 	public int getUserCount() {
-		// TODO Auto-generated method stub
-		return 0;
+		int count = userDao.getUserCount();
+		return count;
 	}
 
 	@Override
@@ -30,8 +30,10 @@ public class UserServiceOracleImpl implements UserService{
 
 	@Override
 	public List<User> getUserList(int page) {
-		// TODO Auto-generated method stub
-		return null;
+		int offset = (page - 1) * RECORDS_PER_PAGE;
+		int limit = page * RECORDS_PER_PAGE;
+		List<User> list = userDao.getUserList(offset, limit);
+		return list;
 	}
 
 	@Override
