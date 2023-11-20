@@ -39,19 +39,16 @@ public class UserServiceOracleImpl implements UserService{
 	@Override
 	public void insertUser(User user) {
 		userDao.insertUser(user);
-		
 	}
 
 	@Override
 	public void updateUser(User user) {
-		
-		
+		userDao.updataUser(user);
 	}
 
 	@Override
 	public void deleteUser(String uid) {
-		// TODO Auto-generated method stub
-		
+		userDao.deleteUser(uid);
 	}
 
 	@Override

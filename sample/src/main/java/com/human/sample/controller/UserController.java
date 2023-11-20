@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+import org.json.simple.JSONObject;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.human.sample.entity.User;
 import com.human.sample.service.UserService;
@@ -23,19 +25,51 @@ public class UserController {
 	@Autowired private UserService userService;
 
 	@GetMapping("/update/{uid}")
+	@ResponseBody	
+	//HTTP 요청의 분문 body 부분이 그대로 전달(xml이나 json기반의s메시지를 사용하는 요청의 경우)
 	public String updateForm(@PathVariable String uid) {
-		return "";
+		User user = userService.getUser(uid);
+		JSONObject jsonObject = new JSONObject();
+		jsonObject.put("uid", user.getUid());
+		jsonObject.put("uname", user.getUname());
+		jsonObject.put("email", user.getEmail());
+		return jsonObject.toJSONString();
 	}
 	
-	@PostMapping("/update/{uid}")
-	public String updateProc(@PathVariable String uid) {
-		return "";
+	@PostMapping("/update")
+	public String updateProc(String pwd, String pwd2, String uname, 
+			 String email, HttpSession session, Model model) {
+		String uid = (String) session.getAttribute("sessUid");
+		User user = userService.getUser(uid); 
+		// 패스워드 미입력시 어떻게 표현되는지 확인하기 위해 출력해봄(출력값: pwd=,pwd2=)
+		// System.out.println("pwd="+ pwd + ",pwd2="+pwd2); 
+		
+		// 올바른 패스워드 규칙을 맞췄을 경우, 패스워드 변경
+		if (pwd.length() >=  4 && pwd.equals(pwd2)) {
+			String hashedPwd = BCrypt.hashpw(pwd, BCrypt.gensalt());
+			user.setPwd(hashedPwd);
+		
+		// 아무런 데이터를 입력하지 않은 경우, 패스워드 변경하지 않음
+		} else if (pwd.equals("") && pwd2.equals("")) {
+			;				//아무일도 하지 않는다.
+		//그외에 경고 메세지를 보내준다.
+		} else {
+			model.addAttribute("msg", "패스워드를 다시 입력하고 수정하세요.");
+			model.addAttribute("url", "/sample/user/list/" + session.getAttribute("currentUserPage"));
+			return "common/alertMsg";
+		}
+		user.setUname(uname);
+		user.setEmail(email);
+		userService.updateUser(user);
+		
+		
+		return "redirect:/user/list/" + session.getAttribute("currentUserPage");
 	}
 	
 	@GetMapping("/delete/{uid}")
-	   public String delete(@PathVariable String uid) {
-		  System.out.println(uid);
-	      return"redirect:/home";
+	   public String delete(@PathVariable String uid, HttpSession session) {
+		userService.deleteUser(uid);
+		return"redirect:/user/list/"+ session.getAttribute("currentUserPage");
    }
 
 	
@@ -54,6 +88,7 @@ public class UserController {
 			pageList.add(String.valueOf(i));
 		model.addAttribute("pageList", pageList);
 		session.setAttribute("currentUserPage", page);
+		model.addAttribute("menu", "user"); // 유저아이콘 불들어옴
 		
 		return "user/list";
 	}
