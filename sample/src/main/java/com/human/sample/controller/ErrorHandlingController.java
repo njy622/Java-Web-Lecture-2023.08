@@ -12,7 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
-public class ErrorHandlingController implements ErrorController{
+public class ErrorHandlingController implements ErrorController {
 	private final String ERROR_404_PAGE_PATH = "error/error404";
 	private final String ERROR_500_PAGE_PATH = "error/error500";
 	private final String ERROR_ETC_PAGE_PATH = "error/error";
@@ -26,14 +26,13 @@ public class ErrorHandlingController implements ErrorController{
 		HttpStatus httpStatus = HttpStatus.valueOf(statusCode);
 		
 		if (status != null) {
-			String timestamp = LocalDateTime.now().toString().substring(0,19).replace("T", "");
+			String timestamp = LocalDateTime.now().toString().substring(0, 19).replace("T", " ");
 			// 404 error
 			if (statusCode == HttpStatus.NOT_FOUND.value()) {
 				model.addAttribute("code", status.toString());
 				model.addAttribute("msg", httpStatus.getReasonPhrase());
 				model.addAttribute("timestamp", timestamp);
 				return ERROR_404_PAGE_PATH;
-
 			}
 			// 500 error
 			if (statusCode == HttpStatus.INTERNAL_SERVER_ERROR.value()) {
@@ -45,7 +44,4 @@ public class ErrorHandlingController implements ErrorController{
 		}
 		return ERROR_ETC_PAGE_PATH;
 	}
-	
-	
-
 }
