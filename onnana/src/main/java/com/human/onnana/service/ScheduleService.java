@@ -23,8 +23,4 @@ public interface ScheduleService {
 	
 	void delete(int sid);
 	
-	List<Schedule> getSchedListByPage(String uid, String startDate, int page);
-	
-	int getSchedCount(String uid, String startDate);
-	
 }

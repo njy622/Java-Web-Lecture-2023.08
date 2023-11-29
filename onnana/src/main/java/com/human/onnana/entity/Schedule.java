@@ -1,21 +1,6 @@
 package com.human.onnana.entity;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-
-/*
-	CREATE TABLE SCHEDULE (
-		sid INT PRIMARY KEY AUTO_INCREMENT,
-		uid VARCHAR(20) NOT NULL,
-		sdate CHAR(8) NOT NULL,
-		title VARCHAR(40) NOT NULL,
-		place VARCHAR(40),
-		startTime DATETIME,
-		endTime DATETIME,
-		isImportant INT DEFAULT 0,
-		memo VARCHAR(100)
-	);
- */
 
 public class Schedule {
 	private int sid;

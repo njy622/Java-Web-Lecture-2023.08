@@ -5,10 +5,11 @@ import java.util.List;
 import com.human.onnana.entity.Anniversary;
 
 public interface AnniversaryService {
-	
-	List<Anniversary> getDayAnnivList(String sdate);
 
-	List<Anniversary> getAnnivDays(String start, String end);
+	List<Anniversary> getDayAnnivList(String uid, String sdate);
 	
-	void insert(Anniversary anniversary);
+	List<Anniversary> getAnnivDays(String uid, String start, String end);
+	
+	void insertAnniv(Anniversary anniv);
+	
 }

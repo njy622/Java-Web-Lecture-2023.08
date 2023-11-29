@@ -2,18 +2,26 @@ package com.human.onnana.entity;
 
 public class Anniversary {
 	private int aid;
+	private String uid;
 	private String aname;
 	private String adate;
 	private int isHoliday;
 	
 	public Anniversary() { }
-	public Anniversary(String aname, String adate, int isHoliday) {
+	public Anniversary(String uid, String aname, String adate) {
+		this.uid = uid;
+		this.aname = aname;
+		this.adate = adate;
+	}
+	public Anniversary(String uid, String aname, String adate, int isHoliday) {
+		this.uid = uid;
 		this.aname = aname;
 		this.adate = adate;
 		this.isHoliday = isHoliday;
 	}
-	public Anniversary(int aid, String aname, String adate, int isHoliday) {
+	public Anniversary(int aid, String uid, String aname, String adate, int isHoliday) {
 		this.aid = aid;
+		this.uid = uid;
 		this.aname = aname;
 		this.adate = adate;
 		this.isHoliday = isHoliday;
@@ -21,7 +29,8 @@ public class Anniversary {
 	
 	@Override
 	public String toString() {
-		return "Anniversary [aid=" + aid + ", aname=" + aname + ", adate=" + adate + ", isHoliday=" + isHoliday + "]";
+		return "Anniversary [aid=" + aid + ", uid=" + uid + ", aname=" + aname + ", adate=" + adate + ", isHoliday="
+				+ isHoliday + "]";
 	}
 	
 	public int getAid() {
@@ -29,6 +38,12 @@ public class Anniversary {
 	}
 	public void setAid(int aid) {
 		this.aid = aid;
+	}
+	public String getUid() {
+		return uid;
+	}
+	public void setUid(String uid) {
+		this.uid = uid;
 	}
 	public String getAname() {
 		return aname;

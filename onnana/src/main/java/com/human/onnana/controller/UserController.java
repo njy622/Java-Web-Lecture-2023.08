@@ -145,7 +145,7 @@ public class UserController {
 			User user = new User(uid, hashedPwd, uname, email);
 			userService.insertUser(user);
 			model.addAttribute("msg", "등록을 마쳤습니다. 로그인 하세요.");
-			model.addAttribute("url", "/onnana/user/login");
+			model.addAttribute("url", "/onnana/home");
 		} else {
 			model.addAttribute("msg", "패스워드 입력이 잘못되었습니다.");
 			model.addAttribute("url", "/onnana/user/register");
@@ -154,11 +154,7 @@ public class UserController {
 	}
 	
 	
-	@GetMapping("/calendar")
-	public String calendarForm() {
-		
-		return "user/calendar";
-	}
+	
 	
 	
 	@GetMapping("/analysis")

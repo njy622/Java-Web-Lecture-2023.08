@@ -4,17 +4,16 @@ import java.util.List;
 
 public class SchDay {
 	private int day;
-	private int date;	// 요일 (0-일요일, ..., 6-토요일)
+	private int date;				// 요일 (0-일요일, ..., 6-토요일)
 	private int isHoliday;
 	private int isOtherMonth;
-	private String sdate;		// 20230214
+	private String sdate;			// 20231129
 	private List<String> annivList;
 	private List<Schedule> schedList;
 	
 	public SchDay() { }
 	public SchDay(int day, int date, int isHoliday, int isOtherMonth, String sdate, List<String> annivList,
 			List<Schedule> schedList) {
-		super();
 		this.day = day;
 		this.date = date;
 		this.isHoliday = isHoliday;
@@ -23,8 +22,13 @@ public class SchDay {
 		this.annivList = annivList;
 		this.schedList = schedList;
 	}
-
-
+	
+	@Override
+	public String toString() {
+		return "SchDay [day=" + day + ", date=" + date + ", isHoliday=" + isHoliday + ", isOtherMonth=" + isOtherMonth
+				+ ", sdate=" + sdate + ", annivList=" + annivList + ", schedList=" + schedList + "]";
+	}
+	
 	public int getDay() {
 		return day;
 	}
