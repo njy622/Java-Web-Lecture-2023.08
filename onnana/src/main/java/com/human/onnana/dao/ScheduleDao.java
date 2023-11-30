@@ -44,4 +44,5 @@ public interface ScheduleDao {
 			+ "  ORDER BY startTime")
 	int getSchedCount(String uid, String startDate);
 	
+	
 }

@@ -130,7 +130,8 @@ public class ScheduleController {
 		model.addAttribute("timeList", schedUtil.genTime());
 		return "schedule/calendar";
 	}
-
+	
+	@ResponseBody
 	@PostMapping("/insert")
 	public String insert(HttpServletRequest req, HttpSession session) {
 		int isImportant = (req.getParameter("importance") == null) ? 0 : 1;
@@ -146,8 +147,9 @@ public class ScheduleController {
 		String sdate = startDate.replace("-", "");
 		String sessUid = (String) session.getAttribute("sessUid");
 		Schedule schedule = new Schedule(sessUid, sdate, title, place, startDateTime, endDateTime, isImportant, memo);
+//		System.out.println(schedule); 서버 읽히는지 테스트
 		schedService.insert(schedule);
-		return "redirect:/schedule/calendar";
+		return "";
 	}
 
 	// Ajax로 detail data를 전달함
@@ -211,4 +213,9 @@ public class ScheduleController {
 		return "redirect:/schedule/calendar";
 	}
 	
+	
+	
+	
+
+
 }

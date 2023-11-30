@@ -52,7 +52,7 @@
 	      var longitude = result.documents[0].y;
 	      var resultDiv = document.getElementById("result");
 	
-	      resultDiv.innerHTML = '검색된 위치 위도:' + latitude + ', 경도:' + longitude;
+	      resultDiv.innerHTML = '검색된 위치 위도:' + latitude + ', 경도:' + longitude +'<br>';
 	
 	      var startLat = hereLat;
 	      var startLon = hereLon;
@@ -65,13 +65,15 @@
 	      var waypoint = "&waypoints=&priority=DISTANCE&car_fuel=GASOLINE&car_hipass=false&alternatives=false&road_details=false";
 	
 	      var distanceUrl = baseUrl + start + goal + waypoint;
-	
+		  
+	      
 	      $.ajax({
 	        url: distanceUrl,
 	        headers: headers,
 	        success: function (distanceResult) {
 	          var distance = distanceResult.routes[0].summary.distance;
-	          resultDiv.innerHTML += '<br>거리: ' + distance + 'm';
+	                 
+	          resultDiv.innerHTML += "총 이동거리(km):" + distance/1000 + "/ 탄소배출량 : "+ distance*200/1000 +"g";
 	        },
 	        error: function (error) {
 	          console.log('에러 발생:', error);
@@ -83,11 +85,31 @@
 	    }
 	  });
 	}
-	urlConn.setDoOutput(true);
-	</script>                       
+	
+	                      
 	                        
-   <!-- =================== 탄소계산기 end =================== -->
-    
+<!-- =================== 탄소계산기 end =================== -->
+<!-- =================== insert 함수 form태그없이 함수로 제출버튼 구현 =================== -->
+	function insert(){
+		var title = $('#title').val();				// insert에 들어가는 데이터 id로 불러와서 변수에 넣음
+		var startDate = $('#startDate').val();
+		var startTime = $('#startTime').val();
+		var endDate = $('#endDate').val();
+		var endTime = $('#endTime').val();
+		var place = $('#place').val();
+		var memo = $('#memo').val();
+	    $.ajax({
+	        type: "POST",
+	        url: "/onnana/schedule/insert", // 스케줄 컨트롤러안의 함수 불러오는 경로
+	        data: {title, startDate, startTime, endDate, endTime, place, memo},
+	        success: function(){
+	            $('#addModal').modal('hide');  // 모달창 숨기고
+	            location.href = '/onnana/schedule/calendar';   // 제출버튼 이후 calendar 창으로 감     
+	        }
+	    });
+	}
+<!-- ============================================ end ==================================== --> 
+</script> 
 </head>
 <body>
 	<%@ include file="../common/top.jspf" %>
@@ -151,7 +173,10 @@
                            	</c:if>
                             </div>
                         <c:forEach var="sched" items="${day.schedList}" varStatus="loop">
-                        	<div class="${loop.first ? 'mt-1' : ''}" style="font-size: 12px;" onclick="schedClick(${sched.sid})">
+                        	<div style="text-align:center; font-size:13px;"  class="${loop.first ? 'mt-1' : ''}" style="font-size: 12px;" onclick="schedClick(${sched.sid})">
+	                        	<!-- 글작성 시, 스탬프 찍기 -->
+								<img height="60px" src="/onnana/img/stamp.png">
+	                        	<br>
 	                        	${fn:substring(sched.startTime, 11, 16)}
 	                        <c:if test="${sched.isImportant eq 1}">
 	                        	<strong>${sched.title}</strong>
@@ -185,7 +210,9 @@
 			
 				<!-- Modal body -->
 				<div class="modal-body">
+				<!-- form 태그로 할시, 거리계산 url과 충돌 -> 제출 버튼 클릭시, 함수 불러오도록 유도
 					<form action="/onnana/schedule/insert" method="post">
+					 -->
 						<table class="table table-borderless">
 	                        <tr>
 	                            <td colspan="2">
@@ -222,19 +249,26 @@
 	                                </select>
 	                            </td>
 	                        </tr>
-	                        <!-- =================== 탄소계산기 start =================== -->
-  			             	<tr>
+<!-- =============================================== 탄소계산기 start ================================================ -->
+  			             	
+                           	<tr>
 	                            <td colspan="2">
 	                            	<p id="demo"></p> <!-- 현재 위치를 표시할 요소 -->
-	                                <label for="place">장소</label>
-	                                <input class="form-control" id="address" placeholder="검색할 주소를 입력하세요">
-	                                <button class="btn btn-primary me-2"  onclick="searchAndCalculateDistance()">거리 계산</button>
-	                                <p id="result"></p> <!-- 검색된 위치의 좌표와 거리를 표시할 요소 -->
+	                                <label for="place">거리 계산하기</label>
+	                                <div class="form-control btn-group">
+		                                <input class="form-control" id="address" placeholder="도착지 주소를 입력하세요">
+		                                <button class="btn btn-primary"  onclick="searchAndCalculateDistance()">계산</button>
+	                            	</div>
+		                                <p id="result"></p> <!-- 검색된 위치의 좌표와 거리를 표시할 요소 -->
 	                            </td>
 	                        </tr>           
-	                        
-	                        
-	                        <!-- =================== 탄소계산기 end =================== -->
+	                        <tr>
+	                            <td colspan="2">
+	                                <label for="distance" value="distance">${distance}</label>
+	                                <input class="form-control" type="text" id="distance" name="distance">
+	                            </td>
+	                        </tr>
+<!-- ========================================================== 탄소계산기 end =========================================== -->
 	                        <tr>
 	                            <td colspan="2">
 	                                <label for="place">장소</label>
@@ -249,7 +283,7 @@
 	                        </tr>
 	                        <tr>
 	                            <td colspan="2" style="text-align: right;">
-	                                <button class="btn btn-primary me-2" type="submit">제출</button>
+	                                <button class="btn btn-primary me-2"   onclick="insert()">제출</button>
 	                                <!-- <button class="btn btn-secondary" type="reset">취소</button> -->
 	                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">종료</button>
 	                            </td>

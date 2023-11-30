@@ -15,34 +15,33 @@ import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Component;
 
 /*
- * Servlet Filter 
+ * Servlet Filter
  */
-
 @Component
-public class LoginFilter extends HttpFilter implements Filter{
-	
+public class LoginFilter extends HttpFilter implements Filter {
+
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
 		HttpServletRequest httpRequest = (HttpServletRequest) request;
 		HttpServletResponse httpResponse = (HttpServletResponse) response;
 		HttpSession session = httpRequest.getSession();
-		session.setMaxInactiveInterval(10 * 3600);		// 세션 유효시간: 10시간 
+		session.setMaxInactiveInterval(10 * 3600); 		// 세션 유효시간: 10시간
 		
-		
-		//홈페이지 들어가면 제일 먼저 
 		String uri = httpRequest.getRequestURI();
 		String sessionUid = (String) session.getAttribute("sessUid");
 		
-		// 로그인해야만 들어올 수 있는 영역 만들기
-		String[] urlPatterns = {"/user/list", "/user/update", "/user/delete", "/schedule/calendar"};
+		// 로그인해야만 들어올 수 있는 path
+		String[] urlPatterns = {"/user/list", "/user/update", "/schedule"};
 		for (String routing: urlPatterns) {
-			if (uri.contains(routing)) {		
-				if (sessionUid == null || sessionUid.equals("")) //위의 창을 들어갈때, 로그인이 안되어있으면
-					httpResponse.sendRedirect("/onnana/home");  //로그인 창으로 보내짐
+			if (uri.contains(routing)) {
+				if (sessionUid == null || sessionUid.equals(""))
+					httpResponse.sendRedirect("/sample/user/login");
 				break;
 			}
 		}
-		chain.doFilter(request, response); 
+		
+		chain.doFilter(request, response);
 	}
+	
 }

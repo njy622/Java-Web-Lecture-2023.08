@@ -66,3 +66,5 @@ function addAnniversary() {
 function addAnnivList() {
 	$('#addAnnivListModal').modal('show');
 }
+
+
