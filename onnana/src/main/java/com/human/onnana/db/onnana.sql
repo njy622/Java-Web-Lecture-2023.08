@@ -34,7 +34,7 @@ CREATE SEQUENCE SEQ_schedule_sid INCREMENT BY 1 START WITH 1;
 CREATE TABLE anniversary
 (
 	aid number NOT NULL,
-	uid varchar2(12),
+	"uid" varchar2(12),
 	aname varchar2(32) NOT NULL,
 	adate char(8) NOT NULL,
 	isHoliday number DEFAULT 0 NOT NULL,
@@ -45,7 +45,7 @@ CREATE TABLE anniversary
 CREATE TABLE schedule
 (
 	sid number NOT NULL,
-	uid varchar2(12),
+	"uid" varchar2(12),
 	sdate char(8) NOT NULL,
 	title varchar2(40) DEFAULT '',
 	place varchar2(40) DEFAULT '',
@@ -62,13 +62,13 @@ CREATE TABLE schedule
 
 CREATE TABLE users
 (
-	uid varchar2(12) NOT NULL,
+	"uid" varchar2(12) NOT NULL,
 	pwd char(60) NOT NULL,
 	uname varchar2(16) NOT NULL,
 	email varchar2(40) NOT NULL,
 	regDate date DEFAULT SYSDATE,
 	isDeleted number DEFAULT 0,
-	PRIMARY KEY (uid)
+	PRIMARY KEY ("uid")
 );
 
 
@@ -76,14 +76,14 @@ CREATE TABLE users
 /* Create Foreign Keys */
 
 ALTER TABLE anniversary
-	ADD FOREIGN KEY (uid)
-	REFERENCES users (uid)
+	ADD FOREIGN KEY ("uid")
+	REFERENCES users ("uid")
 ;
 
 
 ALTER TABLE schedule
-	ADD FOREIGN KEY (uid)
-	REFERENCES users (uid)
+	ADD FOREIGN KEY ("uid")
+	REFERENCES users ("uid")
 ;
 
 
