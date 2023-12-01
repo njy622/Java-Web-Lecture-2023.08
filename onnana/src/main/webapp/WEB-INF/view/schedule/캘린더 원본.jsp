@@ -35,7 +35,7 @@
 	getLocation();
 	
 	function searchAndCalculateDistance() {
-	  var address = document.getElementById('place').value;
+	  var address = document.getElementById('address').value;
 	  var baseUrl = "https://dapi.kakao.com/v2/local/search/address.json";
 	  var query = encodeURIComponent(address);
 	  var url = baseUrl + "?query=" + query;
@@ -73,7 +73,7 @@
 	        success: function (distanceResult) {
 	          var distance = distanceResult.routes[0].summary.distance;
 	                 
-	          resultDiv.innerHTML += "이동거리:" + distance/1000 + "(km)/ 탄소배출량 : "+ distance*130/1000/1000 +"kg";
+	          resultDiv.innerHTML += "총 이동거리(km):" + distance/1000 + "/ 탄소배출량 : "+ distance*200/1000 +"g";
 	        },
 	        error: function (error) {
 	          console.log('에러 발생:', error);
@@ -216,8 +216,11 @@
 						<table class="table table-borderless">
 	                        <tr>
 	                            <td colspan="2">
-	                                <label for="title">오늘의 배출량 총계</label>
+	                                <label for="title">오늘의 참여활동</label>
 	                                <input class="form-control" type="text" id="title" name="title">
+	                                <input class="ms-5 me-2" type="checkbox" name="importance"> 대중교통 및 자전거 이용
+	                                <input class="ms-5 me-2" type="checkbox" name="importance"> 금연
+	                                <input class="ms-5 me-2" type="checkbox" name="importance"> 생활쓰레기
 	                            </td>
 	                        </tr>
 	                        <tr>
@@ -227,90 +230,55 @@
 	                            </td>
 	                        
 	                            <td>
-	                            	<div style="display:none"> <!-- 시작시간 디스플레이에서 숨김 -->
-		                                <label for="startTime" >시작시간</label>
-		                                <select class="form-control" name="startTime" id="startTime">
-		                                <c:forEach var="tl" items="${timeList}">
-		                                    <option value="${tl}">${tl}</option>
-		                                </c:forEach>
-		                                </select>
-	                                </div>
+	                                <label for="startTime">시작시간</label>
+	                                <select class="form-control" name="startTime" id="startTime">
+	                                <c:forEach var="tl" items="${timeList}">
+	                                    <option value="${tl}">${tl}</option>
+	                                </c:forEach>
+	                                </select>
 	                            </td>
 	                            
 	                        </tr>
-	                        
-		                       
-	                      
+	                        <tr>
+	                            <td>
+	                                <label for="endDate">종료일</label>
+	                                <input class="form-control" type="date" id="endDate" name="endDate">
+	                            </td>
+	                            <td>
+	                                <label for="endTime">종료시간</label>
+	                                <select class="form-control" name="endTime" id="endTime">
+	                                <c:forEach var="tl" items="${timeList}">
+	                                    <option value="${tl}">${tl}</option>
+	                                </c:forEach>
+	                                </select>
+	                            </td>
+	                        </tr> 
 <!-- =============================================== 탄소계산기 start ================================================ -->
   			             	
                            	<tr>
 	                            <td colspan="2">
 	                            	<p id="demo"></p> <!-- 현재 위치를 표시할 요소 -->
-	                                <label for="place">대중교통 배출량 계산하기 </label>
-	                                <div class="input-group outer-container" style="width: 100%;">
-									    <input type="text" style="height: auto;" class="form-control" id="place" name="place" placeholder=" 도착지 주소를 입력하세요">
-									    <button class="btn btn-success" style="width: 80px;" type="submit" onclick="searchAndCalculateDistance()">계산</button>
-									</div>
+	                                <label for="place">거리 계산하기</label>
+	                                <div class="form-control btn-group">
+		                                <input class="form-control" id="address" placeholder="  도착지 주소를 입력하세요">
+		                                <button class="btn btn-success" onclick="searchAndCalculateDistance()">계산</button>
+	                            	</div>
 		                                <p id="result"></p> <!-- 검색된 위치의 좌표와 거리를 표시할 요소 -->
 	                            </td>
 	                        </tr>           
 	                        
-	                        <tr>
-	                            <td colspan="2">
-	                            	<p id="demo"></p> <!-- 현재 위치를 표시할 요소 -->
-	                                <label for="place">대중교통 배출량 계산하기 </label>
-	                                <div class="input-group outer-container" style="width: 100%;">
-									    <input type="text" style="height: auto;" class="form-control" id="place2"  name="place2" placeholder=" 도착지 주소를 입력하세요">
-									</div>
-	                            </td>
-	                        </tr>
 <!-- ========================================================== 탄소계산기 end =========================================== -->
 	                        <tr>
 	                            <td colspan="2">
-	                                <label for="place">전기요금</label>
-	                                <div class="input-group outer-container" style="width: 100%;">
-									    <input type="text" style="height: auto;" class="form-control" id="electricty" name="electricty" placeholder=" 월 전기요금을 입력하세요">
-									    <button class="btn btn-success" style="width: 80px;" type="submit" onclick="searchAndCalculateDistance()">계산</button>
-									</div>
+	                                <label for="place">장소</label>
+	                                <input class="form-control" type="text" id="place" name="place">
 	                            </td>
 	                        </tr>
 	                        <tr>
 	                            <td colspan="2">
-	                                <label for="memo">가스요금</label>
-	                                <div class="input-group outer-container" style="width: 100%;">
-									    <input type="text" style="height: auto;" class="form-control" id="gas" name="name" placeholder=" 월 가스요금을 입력하세요">
-									    <button class="btn btn-success" style="width: 80px;" type="submit" onclick="searchAndCalculateDistance()">계산</button>
-									</div>
-	                        </tr>
-	                        <tr>
-	                        <tr>
-	                            <td colspan="2">
-	                                <label for="memo">금연 (갑 / 개비)</label>
-	                                <div class="row">
-		                                <div class="col-6">
-										    <select class="form-select" id="smoke" name="smoke">
-										      	<c:forEach var="i" begin="0" end="5">
-	        										<option value="${i}">${i}</option>
-	  											</c:forEach>
-										    </select>
-										</div>
-										<div class="col-6">
-										    <select class="form-select" id="smoke2" name="smoke2">
-				                                <c:forEach var="i" begin="0" end="20">
-	        										<option value="${i}">${i}</option>
-	       										</c:forEach>
-										    </select>
-										</div>
-									</div>
+	                                <label for="memo">메모</label>
+	                                <input class="form-control" type="text" id="memo" name="memo">
 	                            </td>
-	                        </tr>
-	                         <tr>
-	                            <td colspan="2">
-	                                <label for="memo">이모지</label>
-	                                <div class="input-group outer-container" style="width: 100%;">
-									    <input type="text" style="height: auto;" class="form-control" id="emoge" name="emoge" placeholder=" 월 가스요금을 입력하세요">
-									    <button class="btn btn-success" style="width: 80px;" type="submit" onclick="searchAndCalculateDistance()">계산</button>
-									</div>
 	                        </tr>
 	                        <tr>
 	                            <td colspan="2" style="text-align: right;">
@@ -343,12 +311,13 @@
 	                        <tr>
 	                            <td colspan="2">
 	                                <label for="title2">제목</label>
+	                                <input class="ms-5 me-2" type="checkbox" id="importance2" name="importance">중요
 	                                <input class="form-control" type="text" id="title2" name="title">
 	                            </td>
 	                        </tr>
 	                        <tr>
 	                            <td>
-	                                <label for="startDate2">일자</label>
+	                                <label for="startDate2">시작일</label>
 	                                <input class="form-control" type="date" id="startDate2" name="startDate">
 	                            </td>
 	                            <td>

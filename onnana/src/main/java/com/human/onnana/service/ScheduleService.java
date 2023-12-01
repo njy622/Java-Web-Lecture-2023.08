@@ -23,4 +23,9 @@ public interface ScheduleService {
 	
 	void delete(int sid);
 	
+		
+	double getCount();
+
+	double getUserCount(String uid);
+	
 }

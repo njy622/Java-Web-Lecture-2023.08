@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.human.onnana.db.ScheduleDaoOracle;
 import com.human.onnana.entity.Anniversary;
 import com.human.onnana.entity.SchDay;
 import com.human.onnana.entity.Schedule;
@@ -133,21 +134,25 @@ public class ScheduleController {
 	
 	@ResponseBody
 	@PostMapping("/insert")
-	public String insert(HttpServletRequest req, HttpSession session) {
-		int isImportant = (req.getParameter("importance") == null) ? 0 : 1;
+	public String insert(HttpServletRequest req, HttpSession session, String uid) {
 		String title = req.getParameter("title");
 		String startDate = req.getParameter("startDate");
-		String startTime = req.getParameter("startTime");
-		LocalDateTime startDateTime = LocalDateTime.parse(startDate + "T" + startTime + ":00");
-		String endDate = req.getParameter("endDate");
-		String endTime = req.getParameter("endTime");
-		LocalDateTime endDateTime = LocalDateTime.parse(endDate + "T" + endTime + ":00");
 		String place = req.getParameter("place");
-		String memo = req.getParameter("memo");
+		String place2 = req.getParameter("place2");
+		String electrictystr = req.getParameter("electricty");
+		Double electricty = Double.parseDouble(electrictystr);
+		String gasstr = req.getParameter("gas");
+		Double gas = Double.parseDouble(gasstr);
+		String smokestr = req.getParameter("smoke");
+		Double smoke = Double.parseDouble(smokestr);
+		String smokestr2 = req.getParameter("smoke2");
+		Double smoke2 = Double.parseDouble(smokestr2);
+		String emoge = req.getParameter("emoge");
 		String sdate = startDate.replace("-", "");
 		String sessUid = (String) session.getAttribute("sessUid");
-		Schedule schedule = new Schedule(sessUid, sdate, title, place, startDateTime, endDateTime, isImportant, memo);
+		Schedule schedule = new Schedule(sessUid, sdate, title, place, place2, electricty, gas, smoke, smoke2, emoge);
 //		System.out.println(schedule); 서버 읽히는지 테스트
+		
 		schedService.insert(schedule);
 		return "";
 	}
@@ -161,29 +166,33 @@ public class ScheduleController {
 		jSched.put("sid", sid);
 		jSched.put("title", sched.getTitle());
 		jSched.put("place", sched.getPlace());
-		jSched.put("startTime", sched.getStartTime().toString());
-		jSched.put("endTime", sched.getEndTime().toString());
-		jSched.put("isImportant", sched.getIsImportant());
-		jSched.put("memo", sched.getMemo());
+		jSched.put("place2", sched.getPlace());
+		jSched.put("electricty", sched.getElectricty());
+		jSched.put("gas", sched.getGas());
+		jSched.put("smoke", sched.getSmoke());
+		jSched.put("smoke2", sched.getSmoke2());
+		jSched.put("emoge", sched.getEmoge());
 		return jSched.toString();
 	}
 	
 	@PostMapping("/update")
 	public String update(HttpServletRequest req, HttpSession session) {
-		int isImportant = (req.getParameter("importance") == null) ? 0 : 1;
-		int sid = Integer.parseInt(req.getParameter("sid"));
 		String title = req.getParameter("title");
 		String startDate = req.getParameter("startDate");
-		String startTime = req.getParameter("startTime");
-		LocalDateTime startDateTime = LocalDateTime.parse(startDate + "T" + startTime + ":00");
-		String endDate = req.getParameter("endDate");
-		String endTime = req.getParameter("endTime");
-		LocalDateTime endDateTime = LocalDateTime.parse(endDate + "T" + endTime + ":00");
 		String place = req.getParameter("place");
-		String memo = req.getParameter("memo");
+		String place2 = req.getParameter("place2");
+		Double electricty = Double.parseDouble(req.getParameter("electricty"));
+		String gasstr = req.getParameter("gas");
+		Double gas = Double.parseDouble(gasstr);
+		String smokestr = req.getParameter("smoke");
+		Double smoke = Double.parseDouble(smokestr);
+		String smokestr2 = req.getParameter("smoke2");
+		Double smoke2 = Double.parseDouble(smokestr2);
+		String emoge = req.getParameter("emoge");
 		String sdate = startDate.replace("-", "");
 		String sessUid = (String) session.getAttribute("sessUid");
-		Schedule schedule = new Schedule(sid, sessUid, sdate, title, place, startDateTime, endDateTime, isImportant, memo);
+		Schedule schedule = new Schedule(sessUid, sdate, title, place, place2, electricty, gas, smoke, smoke2, emoge);
+		System.out.println(schedule);
 		schedService.update(schedule);
 		return "redirect:/schedule/calendar";
 	}
@@ -212,10 +221,6 @@ public class ScheduleController {
 			annivService.insertAnniv(anniv);
 		return "redirect:/schedule/calendar";
 	}
-	
-	
-	
-	
 
 
 }

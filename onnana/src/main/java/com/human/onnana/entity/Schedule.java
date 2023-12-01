@@ -3,100 +3,171 @@ package com.human.onnana.entity;
 import java.time.LocalDateTime;
 
 public class Schedule {
-	private int sid;
+	private double sid;
 	private String uid;
 	private String sdate;
 	private String title;
 	private String place;
-	private LocalDateTime startTime;
-	private LocalDateTime endTime;
-	private int isImportant;
-	private String memo;
+	private String place2;
+	private double electricty;
+	private double gas;
+	private double smoke;
+	private double smoke2;
+	private String emoge;
 	
-	public Schedule() { }
-	public Schedule(String uid, String sdate, String title, String place, LocalDateTime startTime,
-			LocalDateTime endTime, int isImportant, String memo) {
-		this.uid = uid;
-		this.sdate = sdate;
-		this.title = title;
-		this.place = place;
-		this.startTime = startTime;
-		this.endTime = endTime;
-		this.isImportant = isImportant;
-		this.memo = memo;
+
+	public Schedule() {
 	}
-	public Schedule(int sid, String uid, String sdate, String title, String place, LocalDateTime startTime,
-			LocalDateTime endTime, int isImportant, String memo) {
+
+
+	public Schedule(double sid, String uid, String sdate, String title, String place, String place2, double electricty,
+			double gas, double smoke, double smoke2, String emoge) {
 		this.sid = sid;
 		this.uid = uid;
 		this.sdate = sdate;
 		this.title = title;
 		this.place = place;
-		this.startTime = startTime;
-		this.endTime = endTime;
-		this.isImportant = isImportant;
-		this.memo = memo;
+		this.place2 = place2;
+		this.electricty = electricty;
+		this.gas = gas;
+		this.smoke = smoke;
+		this.smoke2 = smoke2;
+		this.emoge = emoge;
 	}
-	
+
+
+	public Schedule(String uid, String sdate, String title, String place, String place2, double electricty, double gas,
+			double smoke, double smoke2, String emoge) {
+		this.uid = uid;
+		this.sdate = sdate;
+		this.title = title;
+		this.place = place;
+		this.place2 = place2;
+		this.electricty = electricty;
+		this.gas = gas;
+		this.smoke = smoke;
+		this.smoke2 = smoke2;
+		this.emoge = emoge;
+	}
+
+
 	@Override
 	public String toString() {
 		return "Schedule [sid=" + sid + ", uid=" + uid + ", sdate=" + sdate + ", title=" + title + ", place=" + place
-				+ ", startTime=" + startTime + ", endTime=" + endTime + ", isImportant=" + isImportant + ", memo="
-				+ memo + "]";
+				+ ", place2=" + place2 + ", electricty=" + electricty + ", gas=" + gas + ", smoke=" + smoke
+				+ ", smoke2=" + smoke2 + ", emoge=" + emoge + "]";
 	}
-	
-	public int getSid() {
+
+
+	public double getSid() {
 		return sid;
 	}
-	public void setSid(int sid) {
+
+
+	public void setSid(double sid) {
 		this.sid = sid;
 	}
+
+
 	public String getUid() {
 		return uid;
 	}
+
+
 	public void setUid(String uid) {
 		this.uid = uid;
 	}
+
+
 	public String getSdate() {
 		return sdate;
 	}
+
+
 	public void setSdate(String sdate) {
 		this.sdate = sdate;
 	}
+
+
 	public String getTitle() {
 		return title;
 	}
+
+
 	public void setTitle(String title) {
 		this.title = title;
 	}
+
+
 	public String getPlace() {
 		return place;
 	}
+
+
 	public void setPlace(String place) {
 		this.place = place;
 	}
-	public LocalDateTime getStartTime() {
-		return startTime;
+
+
+	public String getPlace2() {
+		return place2;
 	}
-	public void setStartTime(LocalDateTime startTime) {
-		this.startTime = startTime;
+
+
+	public void setPlace2(String place2) {
+		this.place2 = place2;
 	}
-	public LocalDateTime getEndTime() {
-		return endTime;
+
+
+	public double getElectricty() {
+		return electricty;
 	}
-	public void setEndTime(LocalDateTime endTime) {
-		this.endTime = endTime;
+
+
+	public void setElectricty(double electricty) {
+		this.electricty = electricty;
 	}
-	public int getIsImportant() {
-		return isImportant;
+
+
+	public double getGas() {
+		return gas;
 	}
-	public void setIsImportant(int isImportant) {
-		this.isImportant = isImportant;
+
+
+	public void setGas(double gas) {
+		this.gas = gas;
 	}
-	public String getMemo() {
-		return memo;
+
+
+	public double getSmoke() {
+		return smoke;
 	}
-	public void setMemo(String memo) {
-		this.memo = memo;
+
+
+	public void setSmoke(double smoke) {
+		this.smoke = smoke;
 	}
+
+
+	public double getSmoke2() {
+		return smoke2;
+	}
+
+
+	public void setSmoke2(double smoke2) {
+		this.smoke2 = smoke2;
+	}
+
+
+	public String getEmoge() {
+		return emoge;
+	}
+
+
+	public void setEmoge(String emoge) {
+		this.emoge = emoge;
+	}
+
+
+	
 }

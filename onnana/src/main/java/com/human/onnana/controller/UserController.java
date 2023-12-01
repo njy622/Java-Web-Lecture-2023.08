@@ -17,12 +17,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.human.onnana.entity.User;
+import com.human.onnana.service.ScheduleService;
 import com.human.onnana.service.UserService;
 
 @Controller
 @RequestMapping("/user")
 public class UserController {
 	@Autowired private UserService userService;
+	@Autowired private ScheduleService schedService;
+	
+	
 
 	@GetMapping("/update/{uid}")
 	@ResponseBody	
@@ -107,6 +111,12 @@ public class UserController {
 			User user = userService.getUser(uid);
 			session.setAttribute("sessUname", user.getUname());
 			session.setAttribute("sessEmail", user.getEmail());
+			
+			// 게시판 글 전체 카운트
+			session.setAttribute("sessAllId", schedService.getCount());
+			// 게시판 글 유저 카운트
+			session.setAttribute("sessId", schedService.getUserCount(uid));
+			
 			
 			// 환영 메세지
 			// 로그인 입력 잘못해도, home으로 바로 이동

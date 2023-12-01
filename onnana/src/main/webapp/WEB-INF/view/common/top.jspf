@@ -23,16 +23,18 @@
                 <li class="nav-item dropdown ms-3">
                     <a class="nav-link ${menu eq 'ai' ? 'active' : ''}"  href="/onnana/user/analysis"><i class="fa-solid fa-brain"></i> 미래 예측</a>
                 </li>
-                <li class="nav-item ms-3">
-                    <a class="nav-link ${menu eq 'user' ? 'active' : ''}" href="/onnana/user/list/1"><i class="fas fa-user-friends"></i> 사용자</a>
-                </li>
+             
                 
 
-                <li class="nav-item ms-3">
                 <c:if test="${not empty sessUid}">
+               	<li class="nav-item ms-3">
+                    <a class="nav-link ${menu eq 'user' ? 'active' : ''}" href="/onnana/user/list/1"><i class="fas fa-user-friends"></i> 사용자</a>
+                </li>
+                <li class="nav-item ms-3">
                 	<div style="margin-top:10px">
 		                <a class="ms-3" nav-link" href="/onnana/user/logout"><i class="fas fa-sign-out-alt"></i> 로그아웃</a>
                 	</div>
+                </li>
                 </c:if>
                 <!--
                 필요없는 카테고리
@@ -41,9 +43,11 @@
                 </c:if>
                 -->
                 </li>
-            </ul>
             <c:if test="${not empty sessUname}">
-	            <span class="navbar-text me-3">${sessUname}님 환영합니다.</span>
+	            <li class="nav-item ms-5 mt-3">
+		            <span class="navbar-text mb-4 mr-3">${sessUname}님 환영합니다.</span>
+		        </li>
             </c:if>
+            </ul>
         </div>
     </nav>

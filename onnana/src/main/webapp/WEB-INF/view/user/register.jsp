@@ -8,19 +8,14 @@
  	</style>
 </head>
 <body>
-   <nav class="navbar navbar-expand-sm bg-dark navbar-dark fixed-top">
-        <div class="container-fluid">
-        	<img src="/onnana/img/ck-logo.png" height="60" class="rounded-3, mx-2">
-        	<div class="p-2 bg-dark justify-content-center rounded">
-        		<img src="https://picsum.photos/1500/200" width="100%">
-        	</div>
-        </div>
-   </nav>
+   <
    
    <div class="container" style="margin-top: 250px;">
    		<div class="row">
    			<div class="col-4"></div>
    			<div class="col-4">
+   				<a  style="margin-right: 40px" href="/onnana/home"><img src="/onnana/img/onna.png" height="70"></a>
+				<hr>
    				<h3><strong>사용자 등록</strong></h3>
 				<hr>
 				<form action="/onnana/user/register" method="post">

@@ -75,4 +75,23 @@ public class ScheduleServiceOracleImpl implements ScheduleService {
 		schedDao.delete(sid);
 	}
 
+
+
+	@Override
+	public double getCount() {
+		double allCount = schedDao.count();
+		return allCount;
+	}
+
+	@Override
+	public double getUserCount(String uid) {
+		double userCount = schedDao.userCount(uid);
+		return userCount;
+	}
+
+
+
+
+
+
 }
