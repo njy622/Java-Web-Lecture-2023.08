@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Screen 객체</title>
+    <script>  
+        window.onload = function(){    //body가 화면에 전부 보여진 이후 실행해라!
+            let attr = 'width: ' + screen.width + '<br>';
+            attr += `height: ${screen.height}<br>`;         // ` ` template literal (+연산을 쓰지않아도 되서 편리! ''지옥탈출)
+            attr += `availWidth: ${screen.availWidth}<br>`;
+            attr += `availHeight: ${screen.availHeight}<br>`;
+            attr += `colorDepth: ${screen.colorDepth}<br>`;
+            attr += `pixelDepth: ${screen.pixelDepth}<br>`;
+            document.getElementById('info').innerHTML = attr;    // 동일선상 같은 단어 변경시 Ctrl + D
+        }
+    </script>
+</head>
+<body style="margin: 40px;">
+    <h3 id="info"></h3>
+</body>
+</html>
