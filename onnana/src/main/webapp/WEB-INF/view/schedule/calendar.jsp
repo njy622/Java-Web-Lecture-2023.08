@@ -93,7 +93,7 @@
 	function insert(){
 		var title = $('#title').val();				// insert에 들어가는 데이터 id로 불러와서 변수에 넣음
 		var startDate = $('#startDate').val();
-		var startTime = $('#startTime').val();
+		var startTime = $('#').val();
 		var endDate = $('#endDate').val();
 		var endTime = $('#endTime').val();
 		var place = $('#place').val();
@@ -269,7 +269,7 @@
 	                            <td colspan="2">
 	                                <label for="place">전기요금</label>
 	                                <div class="input-group outer-container" style="width: 100%;">
-									    <input type="text" style="height: auto;" class="form-control" id="electricty" name="electricty" placeholder=" 월 전기요금을 입력하세요">
+									    <input type="text" style="height: auto;" class="form-control" id="electricity" name="electricity" placeholder=" 월 전기요금을 입력하세요">
 									    <button class="btn btn-success" style="width: 80px;" type="submit" onclick="searchAndCalculateDistance()">계산</button>
 									</div>
 	                            </td>

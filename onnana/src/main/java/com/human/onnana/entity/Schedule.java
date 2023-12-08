@@ -3,16 +3,16 @@ package com.human.onnana.entity;
 import java.time.LocalDateTime;
 
 public class Schedule {
-	private double sid;
+	private int sid;
 	private String uid;
 	private String sdate;
 	private String title;
 	private String place;
 	private String place2;
-	private double electricty;
-	private double gas;
-	private double smoke;
-	private double smoke2;
+	private int electricity;
+	private int gas;
+	private int smoke;
+	private int smoke2;
 	private String emoge;
 	
 
@@ -20,15 +20,15 @@ public class Schedule {
 	}
 
 
-	public Schedule(double sid, String uid, String sdate, String title, String place, String place2, double electricty,
-			double gas, double smoke, double smoke2, String emoge) {
+	public Schedule(int sid, String uid, String sdate, String title, String place, String place2, int electricity,
+			int gas, int smoke, int smoke2, String emoge) {
 		this.sid = sid;
 		this.uid = uid;
 		this.sdate = sdate;
 		this.title = title;
 		this.place = place;
 		this.place2 = place2;
-		this.electricty = electricty;
+		this.electricity = electricity;
 		this.gas = gas;
 		this.smoke = smoke;
 		this.smoke2 = smoke2;
@@ -36,14 +36,14 @@ public class Schedule {
 	}
 
 
-	public Schedule(String uid, String sdate, String title, String place, String place2, double electricty, double gas,
-			double smoke, double smoke2, String emoge) {
+	public Schedule(String uid, String sdate, String title, String place, String place2, int electricity, int gas,
+			int smoke, int smoke2, String emoge) {
 		this.uid = uid;
 		this.sdate = sdate;
 		this.title = title;
 		this.place = place;
 		this.place2 = place2;
-		this.electricty = electricty;
+		this.electricity = electricity;
 		this.gas = gas;
 		this.smoke = smoke;
 		this.smoke2 = smoke2;
@@ -54,17 +54,17 @@ public class Schedule {
 	@Override
 	public String toString() {
 		return "Schedule [sid=" + sid + ", uid=" + uid + ", sdate=" + sdate + ", title=" + title + ", place=" + place
-				+ ", place2=" + place2 + ", electricty=" + electricty + ", gas=" + gas + ", smoke=" + smoke
+				+ ", place2=" + place2 + ", electricity=" + electricity + ", gas=" + gas + ", smoke=" + smoke
 				+ ", smoke2=" + smoke2 + ", emoge=" + emoge + "]";
 	}
 
 
-	public double getSid() {
+	public int getSid() {
 		return sid;
 	}
 
 
-	public void setSid(double sid) {
+	public void setSid(int sid) {
 		this.sid = sid;
 	}
 
@@ -119,42 +119,42 @@ public class Schedule {
 	}
 
 
-	public double getElectricty() {
-		return electricty;
+	public int getElectricity() {
+		return electricity;
 	}
 
 
-	public void setElectricty(double electricty) {
-		this.electricty = electricty;
+	public void setElectricity(int electricity) {
+		this.electricity = electricity;
 	}
 
 
-	public double getGas() {
+	public int getGas() {
 		return gas;
 	}
 
 
-	public void setGas(double gas) {
+	public void setGas(int gas) {
 		this.gas = gas;
 	}
 
 
-	public double getSmoke() {
+	public int getSmoke() {
 		return smoke;
 	}
 
 
-	public void setSmoke(double smoke) {
+	public void setSmoke(int smoke) {
 		this.smoke = smoke;
 	}
 
 
-	public double getSmoke2() {
+	public int getSmoke2() {
 		return smoke2;
 	}
 
 
-	public void setSmoke2(double smoke2) {
+	public void setSmoke2(int smoke2) {
 		this.smoke2 = smoke2;
 	}
 

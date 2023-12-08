@@ -34,6 +34,13 @@ public class ScheduleController {
 	@Autowired private AnniversaryService annivService;
 	@Autowired private SchedUtil schedUtil;
 	
+	
+	
+	int electricity = 0;
+	int gas = 0;
+	int smoke = 0;
+	int smoke2 = 0;
+	
 	@GetMapping(value = {"/calendar/{arrow}", "/calendar"})
 	public String calendar(@PathVariable(required = false) String arrow, HttpSession session, Model model) {
 		LocalDate today = LocalDate.now();
@@ -139,18 +146,14 @@ public class ScheduleController {
 		String startDate = req.getParameter("startDate");
 		String place = req.getParameter("place");
 		String place2 = req.getParameter("place2");
-		String electrictystr = req.getParameter("electricty");
-		Double electricty = Double.parseDouble(electrictystr);
-		String gasstr = req.getParameter("gas");
-		Double gas = Double.parseDouble(gasstr);
-		String smokestr = req.getParameter("smoke");
-		Double smoke = Double.parseDouble(smokestr);
-		String smokestr2 = req.getParameter("smoke2");
-		Double smoke2 = Double.parseDouble(smokestr2);
+		electricity = Integer.parseInt("electricity");
+		gas = Integer.parseInt("gas");
+		smoke = Integer.parseInt("smoke");
+		smoke2 = Integer.parseInt("smoke2");
 		String emoge = req.getParameter("emoge");
 		String sdate = startDate.replace("-", "");
 		String sessUid = (String) session.getAttribute("sessUid");
-		Schedule schedule = new Schedule(sessUid, sdate, title, place, place2, electricty, gas, smoke, smoke2, emoge);
+		Schedule schedule = new Schedule(sessUid, sdate, title, place, place2, electricity, gas, smoke, smoke2, emoge);
 //		System.out.println(schedule); 서버 읽히는지 테스트
 		
 		schedService.insert(schedule);
@@ -167,7 +170,7 @@ public class ScheduleController {
 		jSched.put("title", sched.getTitle());
 		jSched.put("place", sched.getPlace());
 		jSched.put("place2", sched.getPlace());
-		jSched.put("electricty", sched.getElectricty());
+		jSched.put("electricity", sched.getElectricity());
 		jSched.put("gas", sched.getGas());
 		jSched.put("smoke", sched.getSmoke());
 		jSched.put("smoke2", sched.getSmoke2());
@@ -181,18 +184,16 @@ public class ScheduleController {
 		String startDate = req.getParameter("startDate");
 		String place = req.getParameter("place");
 		String place2 = req.getParameter("place2");
-		Double electricty = Double.parseDouble(req.getParameter("electricty"));
-		String gasstr = req.getParameter("gas");
-		Double gas = Double.parseDouble(gasstr);
-		String smokestr = req.getParameter("smoke");
-		Double smoke = Double.parseDouble(smokestr);
-		String smokestr2 = req.getParameter("smoke2");
-		Double smoke2 = Double.parseDouble(smokestr2);
+		electricity = Integer.parseInt("electricity");
+		gas = Integer.parseInt("gas");
+		smoke = Integer.parseInt("smoke");
+		smoke2 = Integer.parseInt("smoke2");
 		String emoge = req.getParameter("emoge");
 		String sdate = startDate.replace("-", "");
 		String sessUid = (String) session.getAttribute("sessUid");
-		Schedule schedule = new Schedule(sessUid, sdate, title, place, place2, electricty, gas, smoke, smoke2, emoge);
-		System.out.println(schedule);
+		Schedule schedule = new Schedule(sessUid, sdate, title, place, place2, electricity, gas, smoke, smoke2, emoge);
+//		System.out.println(schedule); 서버 읽히는지 테스트
+		
 		schedService.update(schedule);
 		return "redirect:/schedule/calendar";
 	}

@@ -78,14 +78,14 @@ public class ScheduleServiceOracleImpl implements ScheduleService {
 
 
 	@Override
-	public double getCount() {
-		double allCount = schedDao.count();
+	public int getCount() {
+		int allCount = schedDao.count();
 		return allCount;
 	}
 
 	@Override
-	public double getUserCount(String uid) {
-		double userCount = schedDao.userCount(uid);
+	public int getUserCount(String uid) {
+		int userCount = schedDao.userCount(uid);
 		return userCount;
 	}
 
