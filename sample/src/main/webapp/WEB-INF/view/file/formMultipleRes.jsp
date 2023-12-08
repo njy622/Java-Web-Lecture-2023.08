@@ -5,7 +5,7 @@
 <html>
 <head>
 	<%@ include file="../common/head.jspf" %>
-
+ 
 </head>
 <body>
 	<%@ include file="../common/top.jspf" %>
@@ -15,6 +15,7 @@
 			<!-- ================ Main =================== -->
 			<div class="col-9">
 				<h3><strong>파일 여러개 업로드 결과</strong></h3>
+				<!--주소 http://localhost:8090/sample/file/formUploadMultiple -->
 				<hr>
 				<table class="table">
 					<tr>

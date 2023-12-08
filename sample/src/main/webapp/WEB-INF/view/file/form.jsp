@@ -4,7 +4,7 @@
 <html>
 <head>
 	<%@ include file="../common/head.jspf" %>
-
+  
 </head>
 <body>
 	<%@ include file="../common/top.jspf" %>
