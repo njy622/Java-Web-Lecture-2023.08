@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,16 +9,16 @@
 	<%@ include file="common/top.jspf" %>
 	<div class="container" style="margin-top:80px">
 		<div class="row">
-			<%@ include file="common/aside.jspf" %> 
-			<!-- ================ 내가 작성할 부분 =================== -->
+			<%@ include file="common/aside.jspf" %>
+			<!-- ================= 내가 작성할 부분 ================ -->
 			<div class="col-9">
 				<h3><strong>Home</strong></h3>
-				<hr>
+				<hr>			
 				<img src="/sample/img/home.jpg" width="80%">
 			</div>
-			<!-- ================ 내가 작성할 부분 =================== -->
+			<!-- ================= 내가 작성할 부분 ================ -->
 		</div>
-	</div>
+	</div>	
 	<%@ include file="common/bottom.jspf" %>
 </body>
 </html>

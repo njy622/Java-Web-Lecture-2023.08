@@ -34,10 +34,7 @@
 				</form>
 			</div>
 			<!-- ================ Main =================== -->
-			
-		</div>		
+		</div>
 	</div>
 	<%@ include file="../common/bottom.jspf" %>
-
-</body>
 </html>

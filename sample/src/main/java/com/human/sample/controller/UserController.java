@@ -23,10 +23,9 @@ import com.human.sample.service.UserService;
 @RequestMapping("/user")
 public class UserController {
 	@Autowired private UserService userService;
-
+	
+	@ResponseBody
 	@GetMapping("/update/{uid}")
-	@ResponseBody	
-	//HTTP 요청의 분문 body 부분이 그대로 전달(xml이나 json기반의s메시지를 사용하는 요청의 경우)
 	public String updateForm(@PathVariable String uid) {
 		User user = userService.getUser(uid);
 		JSONObject jsonObject = new JSONObject();
@@ -38,61 +37,49 @@ public class UserController {
 	
 	@PostMapping("/update")
 	public String updateProc(String pwd, String pwd2, String uname, 
-			 String email, HttpSession session, Model model) {
-		String uid = (String) session.getAttribute("sessUid");
-		User user = userService.getUser(uid); 
-		// 패스워드 미입력시 어떻게 표현되는지 확인하기 위해 출력해봄(출력값: pwd=,pwd2=)
-		// System.out.println("pwd="+ pwd + ",pwd2="+pwd2); 
-		
-		// 올바른 패스워드 규칙을 맞췄을 경우, 패스워드 변경
-		if (pwd.length() >=  4 && pwd.equals(pwd2)) {
-			String hashedPwd = BCrypt.hashpw(pwd, BCrypt.gensalt());
+			 				String email, HttpSession session, Model model) {
+			String uid = (String) session.getAttribute("sessUid");
+			User user = userService.getUser(uid);
+		// System.out.println("pwd=" + pwd + ", pwd2=" + pwd2);
+		if (pwd.length() >= 4 && pwd.equals(pwd2)) {
+			String hashedPwd = BCrypt.hashpw(pwd, BCrypt.gensalt()); // hashedPwd로 비밀번호 바꿔치기(?)
 			user.setPwd(hashedPwd);
-		
-		// 아무런 데이터를 입력하지 않은 경우, 패스워드 변경하지 않음
-		} else if (pwd.equals("") && pwd2.equals("")) {
-			;				//아무일도 하지 않는다.
-		//그외에 경고 메세지를 보내준다.
-		} else {
-			model.addAttribute("msg", "패스워드를 다시 입력하고 수정하세요.");
+		} else if (pwd.equals("") && pwd2.equals(""))	{
+			;				// 아무일도 하지 않는다
+		} else { 			
+			model.addAttribute("msg", "패스워드를 다시 입력하고 수정하세요.");		// 경고 메세지를 보내준다
 			model.addAttribute("url", "/sample/user/list/" + session.getAttribute("currentUserPage"));
-			return "common/alertMsg";
+				return "common/alertMsg";
 		}
 		user.setUname(uname);
 		user.setEmail(email);
 		userService.updateUser(user);
 		
-		
 		return "redirect:/user/list/" + session.getAttribute("currentUserPage");
 	}
 	
 	@GetMapping("/delete/{uid}")
-	   public String delete(@PathVariable String uid, HttpSession session) {
+   public String delete(@PathVariable String uid, HttpSession session) {
 		userService.deleteUser(uid);
-		return"redirect:/user/list/"+ session.getAttribute("currentUserPage");
+		return "redirect:/user/list/" + session.getAttribute("currentUserPage");
    }
-
 	
-	
-	
-	
-	@GetMapping("/list/{page}")
-	public String list(@PathVariable int page, HttpSession session, Model model) {
-		List<User> list = userService.getUserList(page);
-		model.addAttribute("userList", list);
-		
-		int totalUsers = userService.getUserCount();
-		int totalPages = (int) Math.ceil((double)totalUsers / userService.RECORDS_PER_PAGE);
-		List<String> pageList = new ArrayList<>();
-		for (int i=1; i<=totalPages; i++)
-			pageList.add(String.valueOf(i));
-		model.addAttribute("pageList", pageList);
-		session.setAttribute("currentUserPage", page);
-		model.addAttribute("menu", "user"); // 유저아이콘 불들어옴
-		
-		return "user/list";
-	}
-	
+   @GetMapping("/list/{page}")
+   public String list(@PathVariable int page, HttpSession session,Model model) {
+      List<User> list = userService.getUserList(page);
+      model.addAttribute("userList", list);
+      
+      int totalUsers = userService.getUserCount();
+      int totalPages = (int) Math.ceil((double)totalUsers / userService.RECORDS_PER_PAGE);
+      List<String> pageList = new ArrayList<>();
+      for (int i =1; i<=totalPages; i++)
+         pageList.add(String.valueOf(i));
+      model.addAttribute("pageList", pageList);
+      session.setAttribute("currentUserPage", page);
+      model.addAttribute("menu","user");
+      
+      return "user/list";
+   }
 	
 	@GetMapping("/login")
 	public String loginForm() {
@@ -105,22 +92,25 @@ public class UserController {
 		if (result == userService.CORRECT_LOGIN) {
 			session.setAttribute("sessUid", uid);
 			User user = userService.getUser(uid);
-			session.setAttribute("sessUname", user.getUname());
-			session.setAttribute("sessEmail", user.getEmail());
+			session.setAttribute("sessUname", user.getUname());			// 이 값이 있으면 로그인한 상태
+			session.setAttribute("sessEmail", user.getEmail());			// session에다가 몇개의 값을 셋팅
 			
 			// 환영 메세지
 			model.addAttribute("msg", user.getUname() + "님 환영합니다.");
 			model.addAttribute("url", "/sample/home");
+			// return "common/alertMsg";		
 		} else if (result == userService.WRONG_PASSWORD) {
 			model.addAttribute("msg", "패스워드 입력이 잘못되었습니다.");
-			model.addAttribute("url", "/sample/user/login");
-		} else {		// UID_NOT_EXIST
+	        model.addAttribute("url", "/sample/user/login");
+			// return "common/alertMsg";
+			
+		} else {	// UID_NOT_EXIST
 			model.addAttribute("msg", "ID 입력이 잘못되었습니다.");
 			model.addAttribute("url", "/sample/user/login");
 		}
 		return "common/alertMsg";
+		
 	}
-	
 	@GetMapping("/logout")
 	public String logout(HttpSession session) {
 		session.invalidate();
@@ -128,26 +118,29 @@ public class UserController {
 	}
 	
 	@GetMapping("/register")
-	public String registerForm() {
+	public String register() {
 		return "user/register";
 	}
 	
 	@PostMapping("/register")
-	public String registerProc(String uid, String pwd, String pwd2, 
+	public String registerProc(String uid, String pwd, String pwd2,
 								String uname, String email, Model model) {
 		if (userService.getUser(uid) != null) {
 			model.addAttribute("msg", "사용자 ID가 중복되었습니다.");
 			model.addAttribute("url", "/sample/user/register");
+			//return "common/alertMsg";
 		}
-		if (pwd.equals(pwd2) && pwd.length() >= 4) {	// pwd와 pwd2가 같고, 길이가 4이상이면
+		if (pwd.equals(pwd2) && pwd.length() >= 4) {		// pwd와 pwd2가 같고, 길이가 4이상이면
 			String hashedPwd = BCrypt.hashpw(pwd, BCrypt.gensalt());
 			User user = new User(uid, hashedPwd, uname, email);
 			userService.insertUser(user);
-			model.addAttribute("msg", "등록을 마쳤습니다. 로그인 하세요.");
+			model.addAttribute("msg", "등록을 마쳤습니다. 로그인을 하세요.");
 			model.addAttribute("url", "/sample/user/login");
+			//return "common/alertMsg";
 		} else {
 			model.addAttribute("msg", "패스워드 입력이 잘못되었습니다.");
 			model.addAttribute("url", "/sample/user/register");
+			
 		}
 		return "common/alertMsg";
 	}

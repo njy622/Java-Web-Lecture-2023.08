@@ -11,12 +11,13 @@ public class HomeController {
 	@GetMapping("/home")		// routing 정보, localhost:8090/sample/home
 	public String home(Model model) {
 		model.addAttribute("menu", "home");
-		return "home";			// webapp/WEB-INF/view/home.jsp를 렌더링 해서 보여줄 것
+		return "home";			// webapp/WEB-INF/view/home.jsp 를 렌더링해서 보여줄 것
 	}
-	
 	@GetMapping("/index")
 	@ResponseBody
 	public String index() {
-		return "<h1>Welcome to SpringBoot World!!!!</h1>";
+		return "<h1>Welcome to SpringBoot World!!!</h1>";
 	}
+	
 }
+

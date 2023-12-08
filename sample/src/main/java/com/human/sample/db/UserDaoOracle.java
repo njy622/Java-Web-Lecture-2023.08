@@ -12,10 +12,9 @@ import com.human.sample.entity.User;
 @Mapper
 public interface UserDaoOracle {
 	
-   @Select("select count(uname) from users where isDeleted=0")
-   public int getUserCount();
+	@Select("select count (uname) from users where isDeleted=0")
+	public int getUserCount();
 
-	
    @Select("select * from users where \"uid\"=#{uid}")
    public User getUser(String uid);
    
@@ -29,8 +28,8 @@ public interface UserDaoOracle {
    public List<User> getUserList(int offset, int limit);
    
    @Update("update users set pwd=#{pwd}, uname=#{uname}, email=#{email} where \"uid\"=#{uid}")
-   void updataUser(User user);		// 인터페이스이기 때문에 public 생략가능
+   void updateUser(User user);				// 인터페이스이기 때문에 public 생략 가능함
    
    @Update("update users set isDeleted=1 where \"uid\"=#{uid}")
-   void deleteUser(String uid);		// 인터페이스이기 때문에 public 생략가능
-}
+   void deleteUser(String uid);				// 인터페이스이기 때문에 public 생략 가능함
+} 

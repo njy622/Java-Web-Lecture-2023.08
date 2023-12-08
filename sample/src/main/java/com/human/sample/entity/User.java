@@ -3,22 +3,21 @@ package com.human.sample.entity;
 import java.time.LocalDate;
 
 public class User {
-	
 	private String uid;
 	private String pwd;
 	private String uname;
 	private String email;
 	private LocalDate regDate;
 	private int isDeleted;
+	public User() {}
 	
-	
-	public User() {	}
 	public User(String uid, String pwd, String uname, String email) {
 		this.uid = uid;
 		this.pwd = pwd;
 		this.uname = uname;
 		this.email = email;
 	}
+	
 	public User(String uid, String pwd, String uname, String email, LocalDate regDate, int isDeleted) {
 		this.uid = uid;
 		this.pwd = pwd;
@@ -27,6 +26,7 @@ public class User {
 		this.regDate = regDate;
 		this.isDeleted = isDeleted;
 	}
+	
 	public String getUid() {
 		return uid;
 	}
@@ -63,12 +63,12 @@ public class User {
 	public void setIsDeleted(int isDeleted) {
 		this.isDeleted = isDeleted;
 	}
-	
-	
+
 	@Override
 	public String toString() {
 		return "User [uid=" + uid + ", pwd=" + pwd + ", uname=" + uname + ", email=" + email + ", regDate=" + regDate
 				+ ", isDeleted=" + isDeleted + "]";
 	}
+
 	
 }
